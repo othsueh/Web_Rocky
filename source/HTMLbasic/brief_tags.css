@@ -1,0 +1,15 @@
+body {
+    background-color: black;
+    color: white;
+    font-size: large;
+}
+
+img {
+    position: sticky;
+}
+
+table {
+    border: 1px salmon white;
+    border-collapse: collapse;
+
+}

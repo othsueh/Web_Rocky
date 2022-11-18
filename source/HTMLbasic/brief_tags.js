@@ -1,0 +1,1 @@
+alert("Please search in google! 🔎")
