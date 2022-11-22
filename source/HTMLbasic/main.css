@@ -1,0 +1,24 @@
+body {
+    background-color: grey;
+    color: azure;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+a {
+    color: orangered;
+}
+
+a:visited {
+    color: greenyellow;
+}
+
+a:hover,
+a:active {
+    color: yellow;
+}
+
+button {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+}
