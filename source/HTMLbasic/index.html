@@ -13,21 +13,160 @@
 
 <body>
     <h1>Hi, welcome to a rocky's html file</h1>
+    <header>
+        <nav aria-label="primary-navigation">
+            <ul>
+                <li>
+                    <a href=" #ready">Ready</a>
+                </li>
+                <li>
+                    <a href="#food">Hunter</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
     <hr>
-    <nav>
-        <ul>
-            <li>
-                <a href=" #ready">Ready</a>
-            </li>
-        </ul>
-    </nav>
+    <main>
+        <article id="Ready">
+            <h2>I'm ready to learn HTML</h2>
+            <p>This is my n<sup>th</sup> web page</p>
+            <section>
+                <h3> HTML5</h3>
+                <img src="./htmllogo.png" title="I'm learning HTML">
+                <figure>
+                    <figcaption>
+                        An Example of HTML5 code
+                    </figcaption>
+                    <p><code>&lt;h1&gt;Hello World!&lt;/h1&gt;</code></p>
+                </figure>
+            </section>
+        </article>
+        <article id="schedule">
+            <h2>My Daily Schedule</h2>
+            <p>Below shows my routine everyday</p>
+            <section>
+                <h3>Routine</h3>
+                <ol>
+                    <li>...I wake up at <time datetime="7:00">7 am</time></li>
+                    <li>...I learn english first by reading english novel</li>
+                    <li>...Then I start to practice toeic speaking</li>
+                </ol>
+                <table>
+                    <caption>My daily schedule</caption>
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">good morning</th>
+                            <td>
+                                <time datetime="7:00">7am-<time datetime="8:00">8am</time>
+                            </td>
+                            <td>
+                                Learn English by novel
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">morning</th>
+                            <td>
+                                <time datetime="8:00">8am-<time datetime="10:00">10am</time>
+                            </td>
+                            <td>
+                                Learn Toeic English Speaking
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">almost noon</th>
+                            <td>
+                                <time datetime="10:00">10am-<time datetime="12:00">12am</time>
+                            </td>
+                            <td>
+                                Learn Toeic English Writing
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">break</th>
+                            <td>
+                                <time datetime="12:00">12am-<time datetime="13:00">1pm</time>
+                            </td>
+                            <td>
+                                Get lunch
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">afternoon</th>
+                            <td>
+                                <time datetime="14:00">2pm-<time datetime="17:00">5pm</time>
+                            </td>
+                            <td>
+                                Get other course
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">evening</th>
+                            <td rowspan="2">All other times</td>
+                            <td>Free time</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">night</th>
+                            <td>Sleep</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2">And that's what I do everdya, English, Code, Recharge!</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </section>
+        </article>
+        <article id="food">
+            <h2>I am also a food hunter</h2>
+            <p>I work hard and really need many delicious dishes to fill my stomach</p>
+            <section>
+                <h3>Food I want to eat</h3>
+                <ul>
+                    <li>
+                        <p>Steak</p>
+                        <figure>
+                            <img src="./steak.jpg" title="delicious steak" alt="steak" width="300px" height="220px"
+                                lodaing="lazy">
+                            <fiurecaption>
+                                Beautiful and delicious steak
+                            </fiurecaption>
+                        </figure>
+                    </li>
+                    <li>
+                        <p>Sushi</p>
+                        <figure>
+                            <img src="./sushi.jpg" alt="Sushi" title="Fresh Sushi" loading="lazy">
+                            <figcaption>Nice Sushi</figcaption>
+                        </figure>
+                    </li>
+                </ul>
+                <aside>
+                    <details>
+                        <summary>
+                            Guess how mamy <mark>kinds of food</mark> I've eatten
+                        </summary>
+                        <p>
+                            More than 1000 kinds!
+                        </p>
+                    </details>
+                </aside>
+            </section>
+        </article>
+    </main>
     <hr>
-    <h2>I'm ready to learn HTML</h2>
-    <section id="Ready">
-        <p>This is my n<sup>th</sup> web page</p>
-    </section>
-    <hr>
-    &lt;&lt;&lt;&copy;<a href="./about.html">Marc Oth</a>&gt;&gt;&gt;
+    <footer>
+        &lt;&lt;&lt;&copy;<a href="./about.html">Marc Oth</a>&gt;&gt;&gt;
+        <br>
+        <a href="#"><button color="green" width="100px" height="20px">Top</button></a>
+    </footer>
 </body>
 
 </html>
