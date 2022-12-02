@@ -138,9 +138,9 @@
                         <figure>
                             <img src="./steak.jpg" title="delicious steak" alt="steak" width="300px" height="220px"
                                 lodaing="lazy">
-                            <fiurecaption>
+                            <figurecaption>
                                 Beautiful and delicious steak
-                            </fiurecaption>
+                            </figurecaption>
                         </figure>
                     </li>
                     <li>
@@ -167,48 +167,82 @@
         <article id="contact">
             <h2>Contact Me</h2>
             <p>I'd really like to hear from you!</p>
-            <form action="https://httpbin.org/get" method="get">
+            <fieldset>
+                <legend>Personal Information</legend>
+                <form action="https://httpbin.org/get" method="get">
+                    <p>
+                        <label for="firstName">
+                            First Name:
+                        </label>
+                        <input type="text" name="firstName" id="firstName" placeholder="Jane" autocomplete="on" required
+                            autofocus>
+                    </p>
+                    <p>
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" name="lastName" id="lastName" placeholder="Doe" autocomplete="on" required>
+                    </p>
+                    <p>
+                        <label for="password">PassWord:</label>
+                        <input type="password" name="password" id="password" placeholder="secret" required>
+                    </p>
+                    <p>
+                        <label for="Phone">Phone:</label>
+                        <input type="tel" name="Phone" id="Phone" placeholder="0800-057-000"
+                            pattern="[0-9]{4}-[0-9]{3}-[0-9]-{3}" required>
+                    </p>
+                    <p>
+                        <label for="Decade">Favorite Decade:</label>
+                        <input type="number" name="Decade" id="Decade" min="1950" max="2020" step="10" value="1980"
+                            required>
+                    </p>
+                    <p>
+                        <label for="system">Favorite Computer System:</label>
+                        <select name="system" id="system" multiple size="2">
+                            <optgroup label="Microsoft">
+                                <option value="Windows 10">Windows 10</option>
+                                <option value="Windows 11" selected>Windows 11</option>
+                            </optgroup>
+                            <optgroup label="Apple">
+                                <option value="Mac">Mac</option>
+                            </optgroup>
+                            <optgroup label="opensource">
+                                <option value="Linux">Linux</option>
+                            </optgroup>
+                            <option value="other">other</option>
+                        </select>
+                    </p>
+            </fieldset>
+            <br>
+            <fieldset>
+                <legend>Your favorite food</legend>
                 <p>
-                    <label for="firstName">
-                        First Name:
-                    </label>
-                    <input type="text" name="firstName" id="firstName" placeholder="Jane" autocomplete="on" required
-                        autofocus>
+                    <input type="radio" name="food" id="tacos" value="tacos">
+                    <label for="tacos">Tacos</label>
                 </p>
                 <p>
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" name="lastName" id="lastName" placeholder="Doe" autocomplete="on" required>
+                    <input type="radio" name="food" id="donut" value="donut">
+                    <label for="donut">Donut</label>
                 </p>
                 <p>
-                    <label for="password">PassWord:</label>
-                    <input type="password" name="password" id="password" placeholder="secret" required>
+                    <input type="radio" name="food" id="pizza" value="pizza">
+                    <label for="pizza">Pizza</label>
+                </p>
+            </fieldset>
+            <fieldset>
+                <legend>Do you have pets?</legend>
+                <p>
+                    <input type="checkbox" name="pet" id="dog" value="dog">
+                    <label for="dog">Dog</label>
                 </p>
                 <p>
-                    <label for="Phone">Phone:</label>
-                    <input type="tel" name="Phone" id="Phone" placeholder="0800-057-000"
-                        pattern="[0-9]{4}-[0-9]{3}-[0-9]-{3}" required>
+                    <input type="checkbox" name="pet" id="cat" value="cat">
+                    <label for="cat">Cat</label>
                 </p>
                 <p>
-                    <label for="Decade">Favorite Decade:</label>
-                    <input type="number" name="Decade" id="Decade" min="1950" max="2020" step="10" value="1980"
-                        required>
+                    <input type="checkbox" name="pet" id="fish" value="fish">
+                    <label for="fish">Fish</label>
                 </p>
-                <p>
-                    <label for="system">Favorite Computer System:</label>
-                    <select name="system" id="system" multiple size="2">
-                        <optgroup label="Microsoft">
-                            <option value="Windows 10">Windows 10</option>
-                            <option value="Windows 11" selected>Windows 11</option>
-                        </optgroup>
-                        <optgroup label="Apple">
-                            <option value="Mac">Mac</option>
-                        </optgroup>
-                        <optgroup label="opensource">
-                            <option value="Linux">Linux</option>
-                        </optgroup>
-                        <option value="other">other</option>
-                    </select>
-                </p>
+            </fieldset>
             </form>
 
         </article>
