@@ -1,7 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@500&display=swap');
 
 body {
     padding: 10%;
     font-size: 2rem;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Chivo Mono', sans-serif;
+    word-spacing: 0.03em;
+}
+
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: hsl(189, 44%, 49%);
+}
+
+a:visited {
+    color: #F00;
+}
+
+a:hover,
+a:focus {
+    text-decoration: underline;
+    color: hsl(189, 44%, 49%, 0.5);
+    background-color: hsla(157, 86%, 49%, 0.3);
+    border-radius: 0.2em;
+}
+
+a:active {
+    color: royalblue;
 }
