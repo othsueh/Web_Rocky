@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@500&display=swap');
+
+body {
+    padding: 10%;
+    font-size: 2rem;
+    font-weight: normal;
+    /* font-style: oblique; */
+    /* font-family: 'Courier New', Courier, monospace; */
+    font-family: 'Chivo Mono', Times, serif;
+
+}
+
+/* input,
+button {
+    font: inherit;
+} */
+p {
+    text-decoration: none;
+    text-transform: lowercase;
+    text-align: none;
+    text-indent: 2em;
+    line-height: 1.5em;
+    letter-spacing: 0.05em;
+    word-spacing: 0.1em;
+
+}
