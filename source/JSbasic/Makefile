@@ -1,0 +1,2 @@
+all:
+	node hello.js
