@@ -55,7 +55,7 @@ for(const day of properties && values) {
   str += `, ${day}day`;
   str += `from ${day[1]} to ${day[2]} `
 }
-console.log(str);
+// console.log(str);
 //Object keys - propertyValues
 console.log(Object.values(openingHours));
 
