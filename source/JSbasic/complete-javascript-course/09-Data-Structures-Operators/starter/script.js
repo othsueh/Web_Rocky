@@ -225,6 +225,24 @@ team2: 6.5,
 
 
 
-const player = game.players;
-const [gk,...fieldPlayers] = player[0];
-console.log(gk, fieldPlayers);
+const players1 = game.players[0];
+const players2 = game.players[1];
+const [gk,...fieldPlayers] = game.players[0];
+const allPlayers = game.players;
+// console.log(gk, fieldPlayers);
+const players1Final = [...players1, 'Thiago', 'Coutinho','Perisic'];
+// console.log(players1Final);
+const {odds: {
+  team1, x:draw, team2,
+}} = game;
+// console.log(team1,draw,team2);
+function printGoals(...players) {
+  console.log(players);
+  console.log(`${players.length} goals are scored.`);
+}
+
+printGoals('Davies', 'Muller', 'Lewandowski','Kimmich');
+printGoals(game.scored);
+console.log(team1 < team2 ? "team1" : "team2");
+team1 < team2 && console.log("team1 is more likely to win");
+team1 > team2 && console.log("team2 is more likely to win");
