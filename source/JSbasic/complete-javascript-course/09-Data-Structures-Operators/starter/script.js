@@ -46,6 +46,71 @@ const restaurant = {
   }
 };
 
+//convert object to map
+const hour = new Map(Object.entries(openingHours));
+// console.log(hour);
+
+const question = new Map([['question','What\'s the best program language in the world'],[1,'C'],[2,'Java'],[3,'JavaScript'],
+  ['correct',3],
+  [true,'correct'],
+  [false,'you are wrong']]);
+for(const [key,value] of question){
+  if(typeof key === 'number') console.log(`Option ${key}: ${value}`);
+}
+// const ans = Number(prompt("What's your answer?"));
+// console.log(ans);
+
+// console.log(question.get(question.get('correct') === ans));
+
+//convert map to array
+console.log([...question]);
+console.log([...question.values()]);
+console.log([...question.keys()]);
+
+// // Map
+// const mapTest = new Map();
+// mapTest.set(0,"nice");
+// // console.log(mapTest);
+// // mapTest.set(0,"ok");
+// mapTest.set(1,"nice").set("robot", "AI").set("Michael","Jordan").set(true,1).set(false,0);
+// console.log(mapTest);
+
+// //Map example
+// const rest = new Map();
+// rest.set('open',11).set('close',23).set(true,'We are open :)').set(false,'Sorry, next time');
+// const time  =10;
+// console.log(rest.get(time > rest.get('open') && time < rest.get('close')));
+// console.log(rest.has('open'));
+// rest.set(document.querySelector('h1'),"Heading");
+// //use array as key
+// const arr = [3,2];
+// rest.set(arr,"hi");
+// console.log(rest.has(arr));
+// // rest.clear();
+// console.log(rest);
+
+// //set introduction
+// const orderset = new Set(['HI', 'how', 'are','you','you']);
+// console.log(orderset.size);
+// console.log(orderset.has("HI"));
+// orderset.add("Nothing");
+// console.log(orderset.has("Nothing"));
+// orderset.delete("how");
+// console.log(orderset);
+// for(const order of orderset) console.log(order);
+
+// //get no-replicate array
+// const company = ['Lora','Jason','Mike','Jason'];
+// const pure = [...new Set(company)];
+// console.log(pure);
+
+// //how many number in an telephone
+// const tele = "0983661696";
+// console.log(new Set(tele).size);
+
+// console.log(orderset[0]); *set has no index
+// const set = new Set("order");
+// console.log(set);
 
 // //Object keys - propertyNames
 // const properties = Object.keys(openingHours);
