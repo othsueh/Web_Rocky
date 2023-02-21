@@ -232,64 +232,64 @@ const restaurant = {
 
 // Coding challenge 1 & 2
 
-const game = {
-team1: 'Bayern Munich',
-team2: 'Borrussia Dortmund',
-players: [
-[
-'Neuer',
-'Pavard',
-'Martinez',
-'Alaba',
-'Davies',
-'Kimmich',
-'Goretzka',
-'Coman',
-'Muller',
-'Gnarby',
-'Lewandowski',
-],
-[
-'Burki',
-'Schulz',
-'Hummels',
-'Akanji',
-'Hakimi',
-'Weigl',
-'Witsel',
-'Hazard',
-'Brandt',
-'Sancho',
-'Gotze',
-],
-],
-score: '4:0',
-scored: ['Lewandowski', 'Gnarby', 'Lewandowski',
-'Hummels'],
-date: 'Nov 9th, 2037',
-odds: {
-team1: 1.33,
-x: 3.25,
-team2: 6.5,
-},
-};
+// const game = {
+// team1: 'Bayern Munich',
+// team2: 'Borrussia Dortmund',
+// players: [
+// [
+// 'Neuer',
+// 'Pavard',
+// 'Martinez',
+// 'Alaba',
+// 'Davies',
+// 'Kimmich',
+// 'Goretzka',
+// 'Coman',
+// 'Muller',
+// 'Gnarby',
+// 'Lewandowski',
+// ],
+// [
+// 'Burki',
+// 'Schulz',
+// 'Hummels',
+// 'Akanji',
+// 'Hakimi',
+// 'Weigl',
+// 'Witsel',
+// 'Hazard',
+// 'Brandt',
+// 'Sancho',
+// 'Gotze',
+// ],
+// ],
+// score: '4:0',
+// scored: ['Lewandowski', 'Gnarby', 'Lewandowski',
+// 'Hummels'],
+// date: 'Nov 9th, 2037',
+// odds: {
+// team1: 1.33,
+// x: 3.25,
+// team2: 6.5,
+// },
+// };
 
-const data = Object.entries(game.scored); 
-for(const [id,name] of data) console.log(`Goal ${Number(id)+1}:${name}`);
+// const data = Object.entries(game.scored); 
+// for(const [id,name] of data) console.log(`Goal ${Number(id)+1}:${name}`);
 
-const winOdd = Object.values(game.odds);
-let avg = 0;
-for(const i of winOdd) avg += i;
-avg /= winOdd.length;
-console.log(avg);
+// const winOdd = Object.values(game.odds);
+// let avg = 0;
+// for(const i of winOdd) avg += i;
+// avg /= winOdd.length;
+// console.log(avg);
 
-for(const [team,odd] of Object.entries(game.odds)) console.log(`Odd of ${team === 'x' ? 'draw' : 'victory'} ${game[team] ?? ""}: ${odd} `);
+// for(const [team,odd] of Object.entries(game.odds)) console.log(`Odd of ${team === 'x' ? 'draw' : 'victory'} ${game[team] ?? ""}: ${odd} `);
 
-const str = {};
-for(const score of Object.values(game.scored)) {
-  str[score] ? str[score]++ : (str[score] = 1);   
-}
-console.log(str);
+// const str = {};
+// for(const score of Object.values(game.scored)) {
+//   str[score] ? str[score]++ : (str[score] = 1);   
+// }
+// console.log(str);
 
 // const players1 = game.players[0];
 // const players2 = game.players[1];
