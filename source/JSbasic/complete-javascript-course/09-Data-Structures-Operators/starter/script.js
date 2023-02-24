@@ -377,3 +377,18 @@ console.log([...question.keys()]);
 // console.log(team1 < team2 ? "team1" : "team2");
 // team1 < team2 && console.log("team1 is more likely to win");
 // team1 > team2 && console.log("team2 is more likely to win");
+
+
+// A sufficient condition is a condition or set of conditions that will produce the event.
+// A necessary condition is a condition that must be present for an event to occur.
+// Implementation of Implications
+function implicationTest(sufficient, necessary){
+  if(sufficient == false || (sufficient && necessary == true))
+    console.log("Sufficient => Necessary");
+  else 
+    console.log("Sufficient !=> Necessary");
+}
+implicationTest(0,0);
+implicationTest(1,0);
+implicationTest(0,1);
+implicationTest(1,1);
