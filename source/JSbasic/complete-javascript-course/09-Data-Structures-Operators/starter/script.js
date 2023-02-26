@@ -46,26 +46,50 @@ const restaurant = {
   }
 };
 
-//convert object to map
-const hour = new Map(Object.entries(openingHours));
-// console.log(hour);
+// //coding challenge 3
+// const gameEvents = new Map([
+// [17, '⚽ GOAL'],
+// [36, '🔁 Substitution'],
+// [47, '⚽ GOAL'],
+// [61, '🔁 Substitution'],
+// [64, '🔶 Yellow card'],
+// [69, '🔴 Red card'],
+// [70, '🔁 Substitution'],
+// [72, '🔁 Substitution'],
+// [76, '⚽ GOAL'],
+// [80, '⚽ GOAL'],
+// [92, '🔶 Yellow card'],
+// ]);
 
-const question = new Map([['question','What\'s the best program language in the world'],[1,'C'],[2,'Java'],[3,'JavaScript'],
-  ['correct',3],
-  [true,'correct'],
-  [false,'you are wrong']]);
-for(const [key,value] of question){
-  if(typeof key === 'number') console.log(`Option ${key}: ${value}`);
-}
+// const events = new Set(gameEvents.values());
+// gameEvents.delete(64);
+// console.log(gameEvents.size);
+// console.log(`An event happened, on average, every ${90/gameEvents.size} minutes.`);
+
+// for(const[key, value] of gameEvents) {
+//   console.log(`${key <= 45 ? "[FIRST HALF]" : "[SECOND HALF]"} ${key}: ${value}`);
+// }
+
+// //convert object to map
+// const hour = new Map(Object.entries(openingHours));
+// // console.log(hour);
+
+// const question = new Map([['question','What\'s the best program language in the world'],[1,'C'],[2,'Java'],[3,'JavaScript'],
+//   ['correct',3],
+//   [true,'correct'],
+//   [false,'you are wrong']]);
+// for(const [key,value] of question){
+//   if(typeof key === 'number') console.log(`Option ${key}: ${value}`);
+// }
 // const ans = Number(prompt("What's your answer?"));
 // console.log(ans);
 
 // console.log(question.get(question.get('correct') === ans));
 
 //convert map to array
-console.log([...question]);
-console.log([...question.values()]);
-console.log([...question.keys()]);
+// console.log([...question]);
+// console.log([...question.values()]);
+// console.log([...question.keys()]);
 
 // // Map
 // const mapTest = new Map();
@@ -382,13 +406,13 @@ console.log([...question.keys()]);
 // A sufficient condition is a condition or set of conditions that will produce the event.
 // A necessary condition is a condition that must be present for an event to occur.
 // Implementation of Implications
-function implicationTest(sufficient, necessary){
-  if(sufficient == false || (sufficient && necessary == true))
-    console.log("Sufficient => Necessary");
-  else 
-    console.log("Sufficient !=> Necessary");
-}
-implicationTest(0,0);
-implicationTest(1,0);
-implicationTest(0,1);
-implicationTest(1,1);
+// function implicationTest(sufficient, necessary){
+//   if(sufficient == false || (sufficient && necessary == true))
+//     console.log("Sufficient => Necessary");
+//   else 
+//     console.log("Sufficient !=> Necessary");
+// }
+// implicationTest(0,0);
+// implicationTest(1,0);
+// implicationTest(0,1);
+// implicationTest(1,1);
