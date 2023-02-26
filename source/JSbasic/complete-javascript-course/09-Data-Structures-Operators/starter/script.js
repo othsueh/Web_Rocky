@@ -46,6 +46,102 @@ const restaurant = {
   }
 };
 
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+
+document.querySelector('button').addEventListener('click',function()
+{
+  const text = document.querySelector('textarea').value;
+  const textList = text.split('\n');
+  const finalList = [];
+  for(const [i,n] of textList.entries()){
+    const [a,b] = n.toLowerCase().trim().split('_');
+    finalList.push((a.toLowerCase()+b[0].toUpperCase()+b.slice(1)).padEnd(20)+'📟'.repeat(i+1));
+  } 
+  document.querySelector('textarea').value = finalList.join('\n');
+});
+
+// //String Methods part 2
+// const str = "apple RR";
+// console.log(str.toLowerCase());
+// console.log(str.toUpperCase());
+// const myName = "ThOmAs";
+// const nameLower = myName.toLowerCase();
+// const nameCorrect = myName[0].toUpperCase() + nameLower.slice(1);
+// console.log(nameCorrect);
+
+// const email = "ych930719@gmail.com";
+// const loginEmail = " ych930719@gmail.com ";
+// const correctEmail = loginEmail.toLowerCase().trim();
+// console.log(correctEmail === email);
+
+// const dollar = "13,500 USD";
+// console.log(dollar.replace("USD", "TWD"));
+
+// const threeDoor = "door door door";
+// console.log(threeDoor.replace("door",'gate'));
+// console.log(threeDoor.replace(/door/g,'gate'));
+// console.log(threeDoor.includes('gate'));
+// if(threeDoor.startsWith('door') && threeDoor.endsWith('door')) console.log("First & Second Door are both opening");
+
+// const [first, second] = "ChunHsueh Yu".split(' ');
+// console.log(first, second);
+// console.log(['HI','HOW','ARE','YOU'].join('James'));
+
+// const capitalizeName = fullName => {
+//   const nameList = fullName.split(' ');
+//   const completeName = [];
+//   for(const n of nameList) 
+//     completeName.push(n.replace(n[0],n[0].toUpperCase()));
+//     // completeName.push(n[0].toUpperCase() + n.slice(1));
+//   console.log(completeName.join(' '));
+// }
+
+// capitalizeName('chun hsueh yu');
+// capitalizeName('michael jordan');
+
+// console.log('canYouGuessthePadding?'.padStart(30,'?').padEnd(40,'?').length);
+
+// //secret your secret number
+// const crypt = number => {
+//   const str = number + '';
+//   const last = str.slice(-4);
+//   return last.padStart(str.length,'?');
+// }
+// console.log(crypt(3350032423));
+// console.log(crypt(7234709279037937));
+
+// const guessMonster = number => {
+//   const answer = 3; 
+//   if(Number(number) == answer) console.log(`There are ${answer} monsters in the forest! ${'🦖'.repeat(answer)}`)
+//   else{
+//     console.log("You are wrong, guess again");
+//     guessMonster(prompt("guess the monster"));
+//   }
+// }
+
+// guessMonster(prompt("guess the monster"));
+
+// //String Methods part 1
+// const str = "penpineappleapplepen";
+// console.log(str.length);
+// console.log(str.indexOf('p'));
+// console.log(str.lastIndexOf('p'));
+// console.log(str.slice(3));
+// console.log(str.slice(-3));
+// console.log(str.slice(17,20));
+// console.log(str.slice(str.indexOf('l'),str.lastIndexOf('l')+1));
+
+// const seatCheck = seat =>{
+//   const row = seat.slice(-1);
+//   if(row > 'F') console.log("You got a far seat!");
+//   else console.log("You got a close seat!");
+// }
+
+// seatCheck("11A");
+// seatCheck("11F");
+// seatCheck("11Z");
+
 // //coding challenge 3
 // const gameEvents = new Map([
 // [17, '⚽ GOAL'],
