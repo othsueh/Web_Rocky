@@ -3,7 +3,15 @@
 // Data needed for a later exercise
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+const flightList = flights.split('+');
 
+for(const f of flightList){
+  const components = f.split(';');
+  const final = [];
+  if(components[0].startsWith('_Delay')) final.push('🚨');
+  final.push(`${components[0].replaceAll('_',' ')} from ${components[1].slice(0,3).toUpperCase()} to ${components[2].slice(0,3).toUpperCase()} (${components[3].replace(':','h')})`);
+  console.log(final.join(''));
+}
 // Data needed for first part of the section
 const weekDays = ['mon','tue','wed','thu','fri','sat','sun'];
 const openingHours= {
@@ -46,20 +54,20 @@ const restaurant = {
   }
 };
 
-document.body.append(document.createElement('textarea'));
-document.body.append(document.createElement('button'));
+// document.body.append(document.createElement('textarea'));
+// document.body.append(document.createElement('button'));
 
-document.querySelector('button').addEventListener('click',function()
-{
-  const text = document.querySelector('textarea').value;
-  const textList = text.split('\n');
-  const finalList = [];
-  for(const [i,n] of textList.entries()){
-    const [a,b] = n.toLowerCase().trim().split('_');
-    finalList.push((a.toLowerCase()+b[0].toUpperCase()+b.slice(1)).padEnd(20)+'📟'.repeat(i+1));
-  } 
-  document.querySelector('textarea').value = finalList.join('\n');
-});
+// document.querySelector('button').addEventListener('click',function()
+// {
+//   const text = document.querySelector('textarea').value;
+//   const textList = text.split('\n');
+//   const finalList = [];
+//   for(const [i,n] of textList.entries()){
+//     const [a,b] = n.toLowerCase().trim().split('_');
+//     finalList.push((a.toLowerCase()+b[0].toUpperCase()+b.slice(1)).padEnd(20)+'📟'.repeat(i+1));
+//   } 
+//   document.querySelector('textarea').value = finalList.join('\n');
+// });
 
 // //String Methods part 2
 // const str = "apple RR";
