@@ -99,6 +99,25 @@ const [gk,...fieldPlayers]= players1;
 const allPlayers = [...players1,...players2];
 const team1Substitute = ['Thiago', 'Coutinho','Perisic'];
 const players1Final = [...players1,...team1Substitute];
+const {
+    odds:{
+        team1, x:draw, team2
+    },
+}=game;
+console.log(team1,draw,team2);
+
+const printGoals = (...players)=>{
+    players = players[0];
+    console.log(players);
+    console.log(`${players.length} goals are scored`);
+};
+printGoals(players1Final);
+team1 < team2 && console.log(`team1 is more likely to win`);
+team2 < team1 && console.log(`team2 is more likely to win`);
+
+for(let i = 1; i <= game.scored.length; i++){
+    console.log(`Goal${i}: ${game.scored[i-1]}`);
+}
 // document.body.append(document.createElement('textarea'));
 // document.body.append(document.createElement('button'));
 
