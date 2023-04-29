@@ -115,9 +115,25 @@ printGoals(players1Final);
 team1 < team2 && console.log(`team1 is more likely to win`);
 team2 < team1 && console.log(`team2 is more likely to win`);
 
-for(let i = 1; i <= game.scored.length; i++){
-    console.log(`Goal${i}: ${game.scored[i-1]}`);
+for(const [i,player] of game.scored.entries()){
+    console.log(`Goal ${i+1}: ${player}`);
 }
+let avg = 0;
+const odds = Object.values(game.odds);
+for(const odd of odds){
+    avg += odd;
+}
+console.log(avg);
+for(const [team,odd] of Object.entries(game.odds)){
+    const teamStr = team === 'x' ? 'draw' : `victory ${game[team]}`
+    console.log(`Odd of ${teamStr}: ${odd}`);
+}
+const scorers = {};
+for(const player of game.scored.values()){
+    scorers[player] ? scorers[player]++ : scorers[player]=1;
+}
+console.log(scorers);
+
 // document.body.append(document.createElement('textarea'));
 // document.body.append(document.createElement('button'));
 
