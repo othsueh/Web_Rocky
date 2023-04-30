@@ -53,86 +53,152 @@
 //     console.log(`Ohter is/are ${otherFlavors}.`);
 //   }
 // };
-const game = {
-team1: 'Bayern Munich',
-team2: 'Borrussia Dortmund',
-players: [
-[
-'Neuer',
-'Pavard',
-'Martinez',
-'Alaba',
-'Davies',
-'Kimmich',
-'Goretzka',
-'Coman',
-'Muller',
-'Gnarby',
-'Lewandowski',
-],
-[
-'Burki',
-'Schulz',
-'Hummels',
-'Akanji',
-'Hakimi',
-'Weigl',
-'Witsel',
-'Hazard',
-'Brandt',
-'Sancho',
-'Gotze',
-],
-],
-score: '4:0',
-scored: ['Lewandowski', 'Gnarby', 'Lewandowski',
-'Hummels'],
-date: 'Nov 9th, 2037',
-odds: {
-team1: 1.33,
-x: 3.25,
-team2: 6.5,
-},
-};
-const [players1,players2] = game.players;
-const [gk,...fieldPlayers]= players1;
-const allPlayers = [...players1,...players2];
-const team1Substitute = ['Thiago', 'Coutinho','Perisic'];
-const players1Final = [...players1,...team1Substitute];
-const {
-    odds:{
-        team1, x:draw, team2
-    },
-}=game;
-console.log(team1,draw,team2);
+//Coding challenge 1&2
+// const game = {
+// team1: 'Bayern Munich',
+// team2: 'Borrussia Dortmund',
+// players: [
+// [
+// 'Neuer',
+// 'Pavard',
+// 'Martinez',
+// 'Alaba',
+// 'Davies',
+// 'Kimmich',
+// 'Goretzka',
+// 'Coman',
+// 'Muller',
+// 'Gnarby',
+// 'Lewandowski',
+// ],
+// [
+// 'Burki',
+// 'Schulz',
+// 'Hummels',
+// 'Akanji',
+// 'Hakimi',
+// 'Weigl',
+// 'Witsel',
+// 'Hazard',
+// 'Brandt',
+// 'Sancho',
+// 'Gotze',
+// ],
+// ],
+// score: '4:0',
+// scored: ['Lewandowski', 'Gnarby', 'Lewandowski',
+// 'Hummels'],
+// date: 'Nov 9th, 2037',
+// odds: {
+// team1: 1.33,
+// x: 3.25,
+// team2: 6.5,
+// },
+// };
+// const [players1,players2] = game.players;
+// const [gk,...fieldPlayers]= players1;
+// const allPlayers = [...players1,...players2];
+// const team1Substitute = ['Thiago', 'Coutinho','Perisic'];
+// const players1Final = [...players1,...team1Substitute];
+// const {
+//     odds:{
+//         team1, x:draw, team2
+//     },
+// }=game;
+// console.log(team1,draw,team2);
 
-const printGoals = (...players)=>{
-    players = players[0];
-    console.log(players);
-    console.log(`${players.length} goals are scored`);
-};
-printGoals(players1Final);
-team1 < team2 && console.log(`team1 is more likely to win`);
-team2 < team1 && console.log(`team2 is more likely to win`);
+// const printGoals = (...players)=>{
+//     players = players[0];
+//     console.log(players);
+//     console.log(`${players.length} goals are scored`);
+// };
+// printGoals(players1Final);
+// team1 < team2 && console.log(`team1 is more likely to win`);
+// team2 < team1 && console.log(`team2 is more likely to win`);
 
-for(const [i,player] of game.scored.entries()){
-    console.log(`Goal ${i+1}: ${player}`);
-}
-let avg = 0;
-const odds = Object.values(game.odds);
-for(const odd of odds){
-    avg += odd;
-}
-console.log(avg);
-for(const [team,odd] of Object.entries(game.odds)){
-    const teamStr = team === 'x' ? 'draw' : `victory ${game[team]}`
-    console.log(`Odd of ${teamStr}: ${odd}`);
-}
-const scorers = {};
-for(const player of game.scored.values()){
-    scorers[player] ? scorers[player]++ : scorers[player]=1;
-}
-console.log(scorers);
+// for(const [i,player] of game.scored.entries()){
+//     console.log(`Goal ${i+1}: ${player}`);
+// }
+// let avg = 0;
+// const odds = Object.values(game.odds);
+// for(const odd of odds){
+//     avg += odd;
+// }
+// console.log(avg);
+// for(const [team,odd] of Object.entries(game.odds)){
+//     const teamStr = team === 'x' ? 'draw' : `victory ${game[team]}`
+//     console.log(`Odd of ${teamStr}: ${odd}`);
+// }
+// const scorers = {};
+// for(const player of game.scored.values()){
+//     scorers[player] ? scorers[player]++ : scorers[player]=1;
+// }
+// console.log(scorers);
+// const orderset = new Set(["hi","i","am"]);
+// orderset.add("thomas");
+// console.log(orderset.has("i"));
+// console.log(orderset);
+// console.log(new Set('penpineappleapplepen'));
+// const repeat = ["r","e","p",'e','a','t'];
+// console.log([...new Set(repeat)]);
+
+//Coding challenge 3
+// const gameEvents = new Map([
+// [17, '⚽ GOAL'],
+// [36, '🔁 Substitution'],
+// [47, '⚽ GOAL'],
+// [61, '🔁 Substitution'],
+// [64, '🔶 Yellow card'],
+// [69, '🔴 Red card'],
+// [70, '🔁 Substitution'],
+// [72, '🔁 Substitution'],
+// [76, '⚽ GOAL'],
+// [80, '⚽ GOAL'],
+// [92, '🔶 Yellow card'],
+// ]);
+
+// const events = [...new Set(gameEvents.values())];
+// // console.log(events);
+// gameEvents.delete(64);
+// // console.log(gameEvents);
+// const time = [...gameEvents.keys()].pop();
+// console.log(time);
+// console.log(`An event happened, on average, every ${time/gameEvents.size} minutes`);
+// for(const [time, event] of gameEvents){
+//     const strPart = time >= 45 ? '[SECOND HALF]' : '[FIRST HALF]';
+//     console.log(`${strPart}${time}: ${event}`);
+// }
+// const plane = "A381";
+// console.log(plane[0]);
+// console.log('pen'[0]);
+// console.log(plane.length);
+// console.log('pen'.length);
+// console.log(plane.indexOf('A'));
+// console.log('BoB'.lastIndexOf('B'));
+// const key = "43284723984732894798"
+// console.log(key.slice(key.indexOf('7'),key.indexOf('9')));
+// console.log('   hello world   '.trim());
+// const threeDoor = "door door door";
+// console.log(threeDoor.replace(/door/g,'gate'));
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+document.querySelector('button').addEventListener('click',function(){
+    const text = document.querySelector('textarea').value;
+    const rows = text.split('\n');
+    console.log(rows);
+    for(const [i,str] of rows.entries()){
+        let [first,second] = str.toLowerCase().trim().split('_');
+        const output = `${first}${second.replace(second[0],second[0].toUpperCase())}`
+        console.log(`${output.padEnd(20)}${'✅'.repeat(i+1)}`);
+    }
+    
+})
+// const camelCaseTrans = (str)=>{
+//     let [first,second] = str.toLowerCase().trim().split('_');
+//     const output = `${first}${second.replace(second[0],second[0].toUpperCase())}`
+//     console.log(output);
+// }
+// camelCaseTrans('   calculate_AGE');
 
 // document.body.append(document.createElement('textarea'));
 // document.body.append(document.createElement('button'));
