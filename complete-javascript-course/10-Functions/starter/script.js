@@ -69,3 +69,80 @@
 // book.apply(eurowings,flightData);
 // // *same
 // book.call(eurowings, ...flightData);
+
+//subtopic : Bind Method
+// const bookEW = book.bind(eurowings);
+// const bookLH = book.bind(lufthansa);
+// bookEW(23, 'Steven Williams');
+// const bookEW23 = book.bind(eurowings, 23);
+// bookEW23(`Jonas Schmedtmann`);
+
+// // * with Event Listeners
+// lufthansa.planes = 300;
+// lufthansa.buyPlane = function(){
+//     console.log(this);
+//     this.planes++;
+//     console.log(this.planes);
+// }
+// document
+//     .querySelector('.buy')
+//     .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+
+// const addTax = (rate, value) => value + value*(rate/100);
+// console.log(addTax(10,200));
+// const addVat = addTax.bind(null, 23);
+// console.log(addVat(100));
+
+//topic : Coding Challenge #1
+//subtopic : data
+// const poll = {
+//     question: "What is your favourite programming language?",
+//     options: ["0: JavaScript", "1: Python", "2: Rust", "3:C++"],
+//     // This generates [0, 0, 0, 0]. More in the next section!
+//     answers: new Array(4).fill(0),
+//     //subtopic : registerNewAnswer
+//     registerNewAnswer(){
+//         const ans = prompt('What is your favourite programming language?\n0: JavaScript\n1: Python\n2: Rust\n3:C++');
+//         if(typeof(Number(ans))=== 'number' && ans >= 0 && ans < 4){
+//             this.answers[ans] ++;
+//         }
+//         this.displayResults();
+//         this.displayResults('string');
+//     },
+//     //subtopic : displayResults
+//     displayResults(type='string'){
+//         if(type === 'string'){
+//             console.log(`Poll results are ${this.answers.join(', ')}`);
+//         }
+//         else if(type === 'array'){
+//             console.log(this.answers);
+//         }
+//     },
+// };
+// const registerNewAnswer = poll.registerNewAnswer.bind(poll);
+// document.querySelector('.poll').addEventListener('click',registerNewAnswer);
+// // subtopic Bonus
+// poll.displayResults.call({answers: [5,2,3]});
+// poll.displayResults.call({answers: [1, 5, 3, 9, 6, 1]}, 'array');
+
+//topic : IIFE
+// (function(){
+//     console.log('Haha You will never find me again');
+// })();
+// (()=>console.log('Nooooh you find me, I\'m gonna hide again'))();
+
+// {
+//     const hello = 'hello World';
+//     var hey = 'hey';
+// }
+// console.log(hello);
+// console.log(hey);
+
+//topic : Coding Cahllenge #2
+(function () {
+    const header = document.querySelector('h1');
+    header.style.color = 'red';
+    document.querySelector('body').addEventListener('click', function () {
+        header.style.color = 'blue';
+    });
+})();
