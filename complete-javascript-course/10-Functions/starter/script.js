@@ -139,10 +139,26 @@
 // console.log(hey);
 
 //topic : Coding Cahllenge #2
-(function () {
-    const header = document.querySelector('h1');
-    header.style.color = 'red';
-    document.querySelector('body').addEventListener('click', function () {
-        header.style.color = 'blue';
-    });
-})();
+// (function () {
+//     const header = document.querySelector('h1');
+//     header.style.color = 'red';
+//     document.querySelector('body').addEventListener('click', function () {
+//         header.style.color = 'blue';
+//     });
+// })();
+//topic : Closure
+// function howDogs(){
+// 	let count = 0;
+// 	return function(){
+// 		count++;
+// 		console.log(`You have ${count} dogs now!`);
+// 	}
+// }
+// const dog2 = howDogs();
+// dog2();
+// dog2();
+
+const test = [1,2,3,4,5,6,7,8,9,10];
+console.log(...test);
+console.log('===pair===');
+console.log(test);

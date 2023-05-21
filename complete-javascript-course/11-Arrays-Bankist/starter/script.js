@@ -61,6 +61,22 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+// topic : display movements
+const displayMovements = (movements) =>{
+  containerMovements.innerHTML = '';
+  movements.forEach((mov,i)=>{
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+    const html = `      
+        <div class="movements__row">
+          <div class="movements__type movements__type--${type}">${i+1} ${type}</div>
+          <div class="movements__date">3 days ago</div>
+          <div class="movements__value">${mov}€</div>
+        </div>`
+    containerMovements.insertAdjacentHTML('beforeend',html);
+  })
+}
+displayMovements(account1.movements);
+// console.log(containerMovements.innerHTML);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -71,6 +87,40 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+// topic : simple array methods
+// const arr = ['a', 'b', 'c', 'd', 'e'];
+// const arr2 = ['f', 'g', 'h', 'i', 'j'];
+// const num1 = [1,2];
+// const num2 = [3,4];
+
+// subtopic : concat
+// const letters = arr.concat(arr2);
+// const num3 = num1.concat(num2);
+// console.log(num3);
+// console.log(letters);
+// console.log([...arr,...arr2]);
+
+// subtopic : reverse
+// const rra = arr.reverse();
+// const num4 = num3.reverse();
+// console.log(num4)
+// console.log(rra);
+
+// subtopic : join
+// console.log(letters.join(' - '));
+
+// subtopic : at
+// const one = arr[0];
+// const none = arr.at(0);
+// console.log(none);
+
+// topic : looping arrays : forEach
+// movements.forEach(function(mov, i, arr){
+//   console.log(`${i}: ${mov}`);
+// });
+// for(const [i,mov] of movements.entries()){
+//   console.log(`${i}: ${mov}`);
+// }

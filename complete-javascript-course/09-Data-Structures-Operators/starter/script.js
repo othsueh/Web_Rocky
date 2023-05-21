@@ -672,3 +672,7 @@ for(const message of flightList){
 // implicationTest(1,0);
 // implicationTest(0,1);
 // implicationTest(1,1);
+
+const us = "I LIKE YOU";
+console.log(us.repeat(10));
+// console.log(us.slice(4,10));
