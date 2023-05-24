@@ -60,6 +60,64 @@ const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
+let currentAcc = '';
+
+//topic : close account
+btnClose.addEventListener('click',function(e){
+  e.preventDefault();
+  if(inputCloseUsername.value === currentAcc.owner && Number(inputClosePin.value) === currentAcc.pin){
+    const index = accounts.findIndex(acc=>acc.owner === currentAcc.owner);
+    accounts.splice(index,1);
+    labelWelcome.textContent = 'Log in to get started';
+    containerApp.style.opacity = 0;
+  }
+})
+//topic : transfer money
+btnTransfer.addEventListener('click',function(e){
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value); 
+  const receiverAcc = accounts.find(acc=>acc.owner === inputTransferTo.value);
+  if(amount > 0 && receiverAcc&& currentAcc.balance >= amount && receiverAcc.owner != currentAcc.owner){
+    currentAcc.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+    updateUI(currentAcc);
+  }
+  inputTransferAmount.value = inputTransferTo.value = '';
+  inputTransferAmount.blur();
+})
+
+//topic : display login
+btnLogin.addEventListener('click',function(e){
+  e.preventDefault();
+  currentAcc = accounts.find(acc=>acc.owner === inputLoginUsername.value);
+  if(currentAcc.pin===Number(inputLoginPin.value)){
+    containerApp.style.opacity = 100;
+    labelWelcome.textContent = `Welcome back, ${currentAcc.owner.split(' ')[0]}`;
+    updateUI(currentAcc);
+  }
+  inputLoginUsername.value = inputLoginPin.value = '';
+  inputLoginPin.blur();
+
+})
+
+//subtopic : update info
+const updateUI = function(acc){
+    displaySum(acc);
+    displayMovements(acc.movements);
+    calcPrintBalance(acc);
+}
+
+// topic : display summary
+const displaySum = function(data){
+  const movements= data.movements;
+  const totalDeposit = movements.filter(mov=>mov>0).reduce((acc,mov)=>acc+mov,0);
+  const totalWithdrawal = movements.filter(mov=>mov<0).reduce((acc,mov)=>acc+mov,0);
+  const interest = movements.filter(mov=>mov>0).map(deposit=>deposit*data.interestRate/100).filter(interest=>interest>=1).reduce((acc,interest)=>acc+interest,0);
+  labelSumIn.textContent = `${totalDeposit}€`;
+  labelSumOut.textContent = `${totalWithdrawal}€`;
+  labelSumInterest.textContent = `${interest}€`;
+}
+// displaySum(account1.movements);
 
 // topic : display movements
 const displayMovements = (movements) =>{
@@ -72,15 +130,17 @@ const displayMovements = (movements) =>{
           <div class="movements__date">3 days ago</div>
           <div class="movements__value">${mov}€</div>
         </div>`
-    containerMovements.insertAdjacentHTML('beforeend',html);
+    containerMovements.insertAdjacentHTML('afterbegin',html);
   })
 }
-displayMovements(account1.movements);
-const calcPrintBalance = function(movements){
-  const balance = movements.reduce((arr,cur)=>arr+=cur,0);
-  labelBalance.textContent = `${balance}€`;
+// displayMovements(account1.movements);
+//topic : display balance
+const calcPrintBalance = function(acc){
+  acc.balance = acc.movements.reduce((arr,cur)=>arr+=cur,0);
+  labelBalance.textContent = `${acc.balance}€`;
 }
-calcPrintBalance(account1.movements);
+// calcPrintBalance(account1.movements);
+
 // console.log(containerMovements.innerHTML);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -95,20 +155,42 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+//topic : findIndex method
+// const mov = movements.findIndex(mov=>mov===450);
+// console.log(mov);
+
+//topic : splice method
+// movements.splice(2,3,300);
+// console.log(movements);
+//topic : find method
+// const firstMov = movements.find(mov=>mov>0);
+// console.log(firstMov);
+// const account = accounts.find(acc=>acc.owner === 'Jessica Davis');
+// console.log(account);
+//topic : coding challenge #3
+// const data1 = [5, 2, 4, 1, 15, 8, 3];
+// const data2 = [16, 6, 10, 5, 6, 1, 4];
+// const calcAverageHumanAge = (datas) => datas.map(data=>(data<=2 ? data*2 : data*4 +16)).filter(age=>age>=18).reduce((acc,age,i,arr)=>acc+=age/arr.length,0);
+// console.log(calcAverageHumanAge(data1));
+// console.log(calcAverageHumanAge(data2));
+//topic : chaining methods
+// const depositUs = movements.filter(mov=>mov>0).map(mov=>mov*1.1).reduce((acc,mov)=>acc+mov,0);
+// console.log(depositUs);
+
 //topic : coding challenge #2
-const data1 = [5, 2, 4, 1, 15, 8, 3];
-const data2 = [16, 6, 10, 5, 6, 1, 4];
-const calcAverageHumanAge = function(datas){
-  const humanAge = datas.map((data)=>{
-    if(data <= 2) return data*2;
-    else return 16+data*4;
-  })
-  const adult =humanAge.filter((age)=>age>=18); 
-  const avg = adult.reduce((acc,cur)=>acc+=cur,0) / adult.length;
-  return avg;
-}
-console.log(calcAverageHumanAge(data1))
-console.log(calcAverageHumanAge(data2))
+// const data1 = [5, 2, 4, 1, 15, 8, 3];
+// const data2 = [16, 6, 10, 5, 6, 1, 4];
+// const calcAverageHumanAge = function(datas){
+//   const humanAge = datas.map((data)=>{
+//     if(data <= 2) return data*2;
+//     else return 16+data*4;
+//   })
+//   const adult =humanAge.filter((age)=>age>=18); 
+//   const avg = adult.reduce((acc,cur)=>acc+=cur,0) / adult.length;
+//   return avg;
+// }
+// console.log(calcAverageHumanAge(data1))
+// console.log(calcAverageHumanAge(data2))
 // topic : reduce method
 // const balance = movements.reduce((acc,cur,i)=>{
 //   console.log(`Iteration ${i} : ${acc}`)
