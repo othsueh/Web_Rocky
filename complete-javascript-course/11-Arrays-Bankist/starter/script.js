@@ -6,7 +6,8 @@
 
 // Data
 const account1 = {
-  owner: 'Jonas Schmedtmann',
+  owner: 'Jonas Schmedtmann', 
+  short: 'js',
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
   pin: 1111,
@@ -14,6 +15,7 @@ const account1 = {
 
 const account2 = {
   owner: 'Jessica Davis',
+  short: 'jd',
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
@@ -21,6 +23,7 @@ const account2 = {
 
 const account3 = {
   owner: 'Steven Thomas Williams',
+  short: 'stw',
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
@@ -28,6 +31,7 @@ const account3 = {
 
 const account4 = {
   owner: 'Sarah Smith',
+  short: 'ss',
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
@@ -61,6 +65,26 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 let currentAcc = '';
+//topic : sort
+let sortMov = false;
+btnSort.addEventListener('click',function(e){
+  e.preventDefault();
+  if(!sortMov){
+    displayMovements(currentAcc.movements,true);
+    sortMov = true;
+  }
+})
+//topic : loan
+btnLoan.addEventListener('click',function(e){
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+  if(amount > 0 && currentAcc.movements.some(mov=>mov>=amount*0.1)){
+    currentAcc.movements.push(amount);
+    updateUI(currentAcc);
+  }
+  inputLoanAmount.value = '';
+  inputLoanAmount.blur();
+})
 
 //topic : close account
 btnClose.addEventListener('click',function(e){
@@ -89,7 +113,7 @@ btnTransfer.addEventListener('click',function(e){
 //topic : display login
 btnLogin.addEventListener('click',function(e){
   e.preventDefault();
-  currentAcc = accounts.find(acc=>acc.owner === inputLoginUsername.value);
+  currentAcc = accounts.find(acc=>(acc.owner === inputLoginUsername.value)||(acc.short===inputLoginUsername.value));
   if(currentAcc.pin===Number(inputLoginPin.value)){
     containerApp.style.opacity = 100;
     labelWelcome.textContent = `Welcome back, ${currentAcc.owner.split(' ')[0]}`;
@@ -120,9 +144,10 @@ const displaySum = function(data){
 // displaySum(account1.movements);
 
 // topic : display movements
-const displayMovements = (movements) =>{
+const displayMovements = (movements,sort=false) =>{
   containerMovements.innerHTML = '';
-  movements.forEach((mov,i)=>{
+  const movs = sort ? movements.slice().sort((a,b)=>a-b) : movements;
+  movs.forEach((mov,i)=>{
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `      
         <div class="movements__row">
@@ -155,6 +180,76 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+//topic : array method practice
+//subtopic : bankDepositSum
+// const bankDepositSum = accounts.flatMap(acc=>acc.movements).filter(mov=>mov>=0).reduce((sum,value)=>sum+=value,0);
+// console.log(bankDepositSum);
+//subtopic : deposit1000
+// const numDeposits1000 = accounts.flatMap(acc=>acc.movements).reduce((count,value)=> (value>=1000)? count+1:count,0);
+// console.log(numDeposits1000);
+//subtopic : sums
+// const {deposits,withdraws} = accounts.flatMap(acc=>acc.movements).reduce((sum,value)=>{
+//   sum[value>0 ? 'deposits':'withdraws'] += Math.abs(value);
+//   return sum;
+// }
+// ,{deposits : 0, withdraws : 0})
+// console.log(deposits,withdraws);
+//subtopic : convertTitle
+// const convertTitle = function(title){
+//   const capitalLize = str => str[0].toUpperCase() + str.slice(1);
+//   const exceptions = ['a','an','or','but','the','on','in','with'];
+//   const arrs = title.toLowerCase().split(' ').map(arr=>exceptions.includes(arr) ? arr : capitalLize(arr)).join(' ');
+//   return capitalLize(arrs);
+// } 
+// console.log(convertTitle("hello how are you"));
+// console.log(convertTitle("TherE is A big Camera"));
+// console.log(convertTitle("An Big show"));
+// const arr2 = new Array(1,2,3,4,5,6,7,8,9);
+// console.log(arr2);
+// const x = new Array(7);
+// const y = new Array(7);
+// x.fill(1);
+// y.fill(1,3,5);
+// console.log(x);
+// console.log(y);
+//subtopic : from method
+// const s = Array.from('string');
+// const z = Array.from({length:7},()=>1);
+// const z2 = Array.from({length:7},(_,i)=>i+1);
+// console.log(s,z,z2);
+//subtopic : Calculate the movements
+// labelBalance.addEventListener('click',function(){
+//   const movementUI = Array.from(document.querySelectorAll('.movements__value'),el=>Number(el.textContent.replace('€','')));
+//   console.log(movementUI);
+// })
+
+//topic : sort method
+// //subtopic : string
+// const owners = ['Jonas','Zach','Adam','Martha'];
+// console.log(owners.sort());
+
+// //subtopic : number
+// const movements2 = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// console.log(movements2.sort((a,b)=>a-b));
+
+// //subtopic : boolean
+// const x = [true,false];
+// console.log(x.sort());
+//topic : flatMap
+// const overBalance = accounts.flatMap(acc=>acc.movements).reduce((acc,mov)=>acc+=mov,0);
+// console.log(overBalance);
+//topic : flat
+// const arr = [[1,2,3],[4,[5,6]],7,8];
+// console.log(arr.flat(2));
+//topic : separate callback
+// const judge = mov => mov >0;
+// console.log(movements.filter(judge));
+//topic : every method
+// const everyDeposits = movements.every(mov=>mov>0);
+// console.log(everyDeposits);
+//topic : some method
+// const anyDeposits = movements.some(mov=>mov>0);
+// console.log(anyDeposits);
 //topic : findIndex method
 // const mov = movements.findIndex(mov=>mov===450);
 // console.log(mov);
