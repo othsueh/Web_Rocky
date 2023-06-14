@@ -180,6 +180,32 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+//topic : coding challenge #4
+// const dogs = [
+// { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+// { weight: 8, curFood: 200, owners: ['Matilda'] },
+// { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+// { weight: 32, curFood: 340, owners: ['Michael'] },
+// ];
+// dogs.forEach(dog=>dog.recommendedFood = Math.trunc(dog.weight**0.75*28));
+// dogs.forEach(dog=>{
+//   if(dog.owners.includes('Sarah')){
+//     console.log(`curFood : ${dog.curFood}, recommendedFood : ${dog.recommendedFood}, Sarah's dog eat too ${dog.curFood > dog.recommendedFood ? 'much' : 'little'}`);
+//   }
+// })
+// const ownersEatTooMuch = dogs.filter(dog=>dog.curFood > dog.recommendedFood).flatMap(dog=>dog.owners);
+// const ownersEatTooLittle = dogs.filter(dog=>dog.curFood < dog.recommendedFood).flatMap(dog=>dog.owners);
+// console.log(ownersEatTooMuch.join(" and ").concat("'s dogs eat too much!"));
+// console.log(ownersEatTooLittle.join(" and ").concat("'s dogs eat too little!"));
+// const dogsEatExactly = dogs.some(dog=>dog.curFood === dog.recommendedFood);
+// console.log(dogsEatExactly);
+// dogs.forEach(dog=>dog.okay = [dog.recommendedFood*0.9,dog.recommendedFood*1.1]);
+// const dogsokay = dogs.some(dog=>dog.curFood >= dog.okay[0] && dog.curFood <= dog.okay[1]);
+// console.log(dogsokay);
+// const okayDogs = dogs.filter(dog=>dog.curFood >= dog.okay[0] && dog.curFood <= dog.okay[1]);
+// console.log(okayDogs);
+// const sortDogFood = dogs.sort((a,b)=>a.recommendedFood-b.recommendedFood);
+// console.log(sortDogFood);
 //topic : array method practice
 //subtopic : bankDepositSum
 // const bankDepositSum = accounts.flatMap(acc=>acc.movements).filter(mov=>mov>=0).reduce((sum,value)=>sum+=value,0);
