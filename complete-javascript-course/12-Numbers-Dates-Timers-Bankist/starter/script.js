@@ -94,7 +94,7 @@ const displayMovements = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
 
@@ -104,19 +104,19 @@ const displayMovements = function (movements, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance}€`;
+  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -126,7 +126,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 const createUsernames = function (accs) {
@@ -149,6 +149,11 @@ const updateUI = function (acc) {
 
   // Display summary
   calcDisplaySummary(acc);
+  
+  [...document.querySelectorAll('.movements__row')].forEach(function(row,i){
+    if(i%2 === 0) row.style.backgroundColor = 'orangered';
+    if(i%2 === 1) row.style.backgroundColor = 'cyan';
+  })
 };
 
 ///////////////////////////////////////
@@ -206,7 +211,7 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = +(inputLoanAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
@@ -251,22 +256,76 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+//topic Date
+const now = new Date()
+console.log(now)
+console.log(now.getSeconds());
+console.log(new Date('2004 07 19').toISOString())
+console.log(new Date(0))
+// console.log(new Date(account1.movementsDates[0]))
+// account1.movementsDates.forEach((mov) => console.log(new Date(mov)))
+console.log(new Date(3*24*60*60*1000))
+console.log(Date.now())
+//topic BigInt
+// console.log(Number.MAX_SAFE_INTEGER);
+// console.log(2**53-1);
+// console.log(2487923479234792387492374923742947329874n)
+// console.log(100234n+2342324n)
+// console.log(10n/3n)
+
+//topic Numeric separators
+// const z = 123_456_789
+// console.log(z)
+// console.log()
+
+//topic Remainder 
+// const isEven = num => num%2 === 0;
+// console.log(isEven(8))
+// console.log(isEven(23))
+//topic : Math and rounding
+//subtopic : change float to int
+// console.log(Math.max(5, 18, 23, 11, 2, +'28'));
+// console.log(Math.PI * Number.parseFloat('10px')**2)
+// console.log(Math.trunc(30.7));
+// const randomInt = (min,max) => Math.floor(Math.random() * (max-min) + 1);
+// console.log(randomInt(1,3));
+// console.log(Math.trunc(31.99));
+// const x = -30.7;
+// console.log((Math.floor(x) === Math.trunc(x) ? 'Yes' : 'No')+ ` floor(x) = ${Math.floor(x)}` + ` trunc(x) = ${Math.trunc(x)}`);
+// console.log(Math.round(x),Math.ceil(x));
+// console.log(Math.ceil(30.01))
+//subtopic : tofixed
+// const y = 1.234567;
+// console.log(y.toFixed(2));
+// console.log(y.toFixed(3));
+// console.log(y.toFixed(4));
+// console.log(y.toFixed(5));
+// console.log(Math.floor('150.53'));
 //topic : number  
-console.log(23.0 === 23);
-console.log(0.1 + 0.2);
-console.log(3/10);
+// console.log(23.0 === 23);
+// console.log(0.1 + 0.2);
+// console.log(3/10);
 //subtopic : conversion
-console.log(Number('23'));
-console.log(+'23');
+// console.log(Number('23'));
+// console.log(+'23');
 //subtopic : parsing
-console.log(Number.parseInt('30px'));
-console.log(Number.parseInt('30px',7));
-console.log(Number.parseInt('3px0'));
-console.log(Number.parseFloat('2.5rem'));
-console.log(Number.parseInt('2.5rem'));
-//subtopic : is A Number?
-console.log(Number.isNaN(20));
-console.log(Number.isNaN(+'20p'));
-console.log(Number.isNaN(3/0));
-console.log(Number.isFinite(30/0));
-console.log(Number.isFinite(20));
+// console.log(Number.parseInt('30px'));
+// console.log(Number.parseInt('30px',7));
+// console.log(Number.parseInt('3px0'));
+// console.log(Number.parseFloat('2.5rem'));
+// console.log(Number.parseInt('2.5rem'));
+//subtopic : is Nan?
+// console.log(Number.isNaN(20));
+// console.log(Number.isNaN(+'20p'));
+// console.log(Number.isNaN(3/0));
+
+//subtopic : is a Number & is finite?
+// console.log(Number.isFinite('30'));
+// console.log(Number.isFinite(30/0));
+// console.log(Number.isFinite(20));
+
+//subtopic : is a integer?
+// console.log(Number.isInteger(20));
+// console.log(Number.isInteger(30/0));
+// console.log(Number.isInteger(20.0));
+
