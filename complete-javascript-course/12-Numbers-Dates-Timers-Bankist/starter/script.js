@@ -23,7 +23,7 @@ const account1 = {
     '2020-05-08T14:11:59.604Z',
     '2020-05-27T17:01:17.194Z',
     '2020-07-11T23:36:17.929Z',
-    '2020-07-12T10:51:36.790Z',
+    '2023-06-26T10:51:36.790Z',
   ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
@@ -81,19 +81,36 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
-const displayMovements = function (movements, sort = false) {
+const formatMovmentDate = function(date){
+  const dayPassed = (d1,d2) => Math.floor(Math.abs(d2 - d1) / (1000*24*60*60))
+  const dateNum = dayPassed(new Date(),date);
+  if(dateNum === 0)  return `TODAY`
+  else if(dateNum === 1) return 'YESTERDAY'
+  else if(dateNum <= 7) return `${dateNum} DAYS AGO`
+  else {
+    const month = `${date.getMonth() + 1}`.padStart(2,0);
+    const day = `${date.getDate()}`.padStart(2,0);
+    const year = `${date.getFullYear()}`
+    const dateStr = `${day}/${month}/${year}`
+    return dateStr
+  } 
+  
+}
+const displayMovements = function (movements, dates,sort = false) {
   containerMovements.innerHTML = '';
 
   const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
-
+    const date = new Date(dates[i])
+    const dateStr = formatMovmentDate(date)
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
+        <div class="movements__date">${dateStr}</div>
         <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
@@ -142,13 +159,22 @@ createUsernames(accounts);
 
 const updateUI = function (acc) {
   // Display movements
-  displayMovements(acc.movements);
+  displayMovements(acc.movements,acc.movementsDates);
 
   // Display balance
   calcDisplayBalance(acc);
 
   // Display summary
   calcDisplaySummary(acc);
+  const date = new Date();
+  const month = `${date.getMonth() + 1}`.padStart(2,0);
+  const day = `${date.getDate()}`.padStart(2,0);
+  const year = `${date.getFullYear()}`
+  const hour = `${date.getHours()}`.padStart(2,0);
+  const min = `${date.getMinutes()}`.padStart(2,0);
+  const dateStr = `${day}/${month}/${year}, ${hour}:${min}`
+  labelDate.textContent = dateStr;
+
   
   [...document.querySelectorAll('.movements__row')].forEach(function(row,i){
     if(i%2 === 0) row.style.backgroundColor = 'orangered';
@@ -202,6 +228,9 @@ btnTransfer.addEventListener('click', function (e) {
     // Doing the transfer
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
+    //Add transfer time
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAcc.movementsDates.push(new Date().toISOString());
 
     // Update UI
     updateUI(currentAccount);
@@ -216,6 +245,8 @@ btnLoan.addEventListener('click', function (e) {
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
     currentAccount.movements.push(amount);
+    //Add Loan time
+    currentAccount.movementsDates.push(new Date().toISOString());
 
     // Update UI
     updateUI(currentAccount);
@@ -257,15 +288,22 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 // LECTURES
 //topic Date
-const now = new Date()
-console.log(now)
-console.log(now.getSeconds());
-console.log(new Date('2004 07 19').toISOString())
-console.log(new Date(0))
+// const now = new Date()
+// console.log(now)
+// const myBirth = new Date('2004 07 19')
+// console.log(myBirth.getTime())
+// console.log(now)
+// console.log(now.getSeconds());
+// console.log(new Date('2004 07 19').toISOString())
+// console.log(new Date(0))
 // console.log(new Date(account1.movementsDates[0]))
 // account1.movementsDates.forEach((mov) => console.log(new Date(mov)))
-console.log(new Date(3*24*60*60*1000))
-console.log(Date.now())
+// console.log(new Date(3*24*60*60*1000))
+// console.log(Date.now())
+//subtopic : calculate new Date
+const future = new Date('2023 07 19')
+const dayPassed = (d1,d2) => Math.floor(Math.abs(d2 - d1) / (1000*24*60*60))
+console.log(dayPassed(new Date(),future))
 //topic BigInt
 // console.log(Number.MAX_SAFE_INTEGER);
 // console.log(2**53-1);
