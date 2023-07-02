@@ -87,31 +87,33 @@ const formatMovmentDate = function(date){
   if(dateNum === 0)  return `TODAY`
   else if(dateNum === 1) return 'YESTERDAY'
   else if(dateNum <= 7) return `${dateNum} DAYS AGO`
-  else {
-    const month = `${date.getMonth() + 1}`.padStart(2,0);
-    const day = `${date.getDate()}`.padStart(2,0);
-    const year = `${date.getFullYear()}`
-    const dateStr = `${day}/${month}/${year}`
-    return dateStr
-  } 
+  return new Intl.DateTimeFormat(currentAccount.locale).format(date);
+  // else {
+  //   const month = `${date.getMonth() + 1}`.padStart(2,0);
+  //   const day = `${date.getDate()}`.padStart(2,0);
+  //   const year = `${date.getFullYear()}`
+  //   const dateStr = `${day}/${month}/${year}`
+  //   return dateStr
+  // } 
   
 }
 const displayMovements = function (movements, dates,sort = false) {
   containerMovements.innerHTML = '';
 
   const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
-
+  
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const date = new Date(dates[i])
     const dateStr = formatMovmentDate(date)
+    const formatMov = new Intl.NumberFormat(currentAccount.locale,{style : 'currency', currency : currentAccount.currency}).format(mov);
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
         <div class="movements__date">${dateStr}</div>
-        <div class="movements__value">${mov.toFixed(2)}€</div>
+        <div class="movements__value">${formatMov}</div>
       </div>
     `;
 
@@ -121,19 +123,22 @@ const displayMovements = function (movements, dates,sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
+  const formatBalance = new Intl.NumberFormat(currentAccount.locale,{style : 'currency', currency : currentAccount.currency}).format(acc.balance);
+  labelBalance.textContent = `${formatBalance}`;
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
+  const formatIncomes = new Intl.NumberFormat(currentAccount.locale,{style : 'currency', currency : currentAccount.currency}).format(incomes);
+  labelSumIn.textContent = `${formatIncomes}`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
+  const formatOut = new Intl.NumberFormat(currentAccount.locale,{style : 'currency', currency : currentAccount.currency}).format(out);
+  labelSumOut.textContent = `${formatOut}`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -143,7 +148,8 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
+  const formatInterest = new Intl.NumberFormat(currentAccount.locale,{style : 'currency', currency : currentAccount.currency}).format(interest);
+  labelSumInterest.textContent = `${formatInterest}`;
 };
 
 const createUsernames = function (accs) {
@@ -167,13 +173,16 @@ const updateUI = function (acc) {
   // Display summary
   calcDisplaySummary(acc);
   const date = new Date();
-  const month = `${date.getMonth() + 1}`.padStart(2,0);
-  const day = `${date.getDate()}`.padStart(2,0);
-  const year = `${date.getFullYear()}`
-  const hour = `${date.getHours()}`.padStart(2,0);
-  const min = `${date.getMinutes()}`.padStart(2,0);
-  const dateStr = `${day}/${month}/${year}, ${hour}:${min}`
-  labelDate.textContent = dateStr;
+  const options = {
+    hour:'2-digit',
+    minute:'numeric',
+    day:'2-digit',
+    month:'short',
+    year:'numeric',
+    weekday:'short',
+    hour12: 'false'
+  }
+  labelDate.textContent = new Intl.DateTimeFormat(currentAccount.locale,options).format(date);
 
   
   [...document.querySelectorAll('.movements__row')].forEach(function(row,i){
@@ -287,6 +296,18 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+//topic Intl number
+const options = {
+  // style: 'unit',
+  style: 'currency',
+  unit: 'celsius',
+  currency: 'TWD'
+}
+const numb = 2345678;
+console.log(new Intl.NumberFormat('de-DE').format(numb))
+console.log(navigator.language,new Intl.NumberFormat(navigator.language).format(numb))
+console.log(navigator.language,new Intl.NumberFormat(navigator.language,options).format(numb))
+console.log('Germany',new Intl.NumberFormat('de-DE',options).format(numb))
 //topic Date
 // const now = new Date()
 // console.log(now)
@@ -301,9 +322,14 @@ btnSort.addEventListener('click', function (e) {
 // console.log(new Date(3*24*60*60*1000))
 // console.log(Date.now())
 //subtopic : calculate new Date
-const future = new Date('2023 07 19')
-const dayPassed = (d1,d2) => Math.floor(Math.abs(d2 - d1) / (1000*24*60*60))
-console.log(dayPassed(new Date(),future))
+// const future = new Date('2023 07 19')
+// const dayPassed = (d1,d2) => Math.floor(Math.abs(d2 - d1) / (1000*24*60*60))
+// console.log(dayPassed(new Date(),future))
+//subtopic : INTL
+// const now = new Date('2004 07 19')
+// const date = Intl.DateTimeFormat('en-us').format(now);
+// console.log(date);
+
 //topic BigInt
 // console.log(Number.MAX_SAFE_INTEGER);
 // console.log(2**53-1);
