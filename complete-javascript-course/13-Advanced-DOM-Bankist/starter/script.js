@@ -32,6 +32,35 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+//topic : Event Propagation in Practice
+const randomInt = (min,max) => Math.floor(Math.random()*(max-min+1)+min);
+const randomColor = () => `rgb(${randomInt(0,255)},${randomInt(0,255)},${randomInt(0,255)})`;
+console.log(randomColor(0,255));
+document.querySelector('.nav__link').addEventListener
+('click', function(e){
+  this.style.backgroundColor = randomColor();
+})
+document.querySelector('.nav__links').addEventListener
+('click', function(e){
+  this.style.backgroundColor = randomColor();
+})
+document.querySelector('.nav').addEventListener
+('click', function(e){
+  this.style.backgroundColor = randomColor();
+})
+
+//topic : types of events and event handlers
+const h1 = document.querySelector('h1');
+const alertH1 = function(e){
+  alert('addEventListener: Great! You are reading the heading :D');
+//subtopic : removing event listener by using function expression
+  // h1.removeEventListener('mouseenter',alertH1); 
+};
+// h1.addEventListener('mouseenter',alertH1);
+//subtopic : removing event listener by using timeOut function
+// setTimeout(()=>{h1.removeEventListener('mouseenter',alertH1)},3000);
+
+
 //topic : smooth scrolling
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
