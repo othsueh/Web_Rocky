@@ -7,6 +7,12 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+const nav = document.querySelector('.nav');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -31,39 +37,194 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+//topic : lazy loading images
+const loadImg = function(entries,observer){
+  const [entry] = entries;
+  if(!entry.isIntersecting) return;
+  entry.target.src = entry.target.dataset.src;
+  entry.target.addEventListener('load',function(){
+    entry.target.classList.remove('lazy-img');
+  });
+  observer.unobserve(entry.target);
+}
+const imgTargets = document.querySelectorAll('img[data-src]');
+const imageObserver = new IntersectionObserver(loadImg,
+  {
+    root : null,
+    threshold : 0,
+    rootMargin : '200px',
+  });
+imgTargets.forEach(img=>imageObserver.observe(img));
+
+//topic : revealing elements on scroll
+const allSections = document.querySelectorAll('.section');
+const revealSection = function(entries, observer){
+  const [entry] = entries;
+  if(!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target);
+}
+const sectionObserver = new IntersectionObserver(revealSection,
+  {
+    root : null,
+    threshold : 0.15,
+  })
+allSections.forEach(function(section){
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+})
+
+
+//topic : sticky navigation - use intersection observer API
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+const stickyNav = function(entries){
+  const [entry] = entries;
+  nav.classList.toggle('sticky',!entry.isIntersecting);
+}
+const headerObserver = new IntersectionObserver(stickyNav,{
+  root:null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
+})
+headerObserver.observe(header);
+// const obsCallback = function(entries,observer){
+//   entries.forEach(entry=>{
+//     console.log(entry);
+//   })
+
+// }
+// const obsOptions = {
+//   root: null, //null means viewport
+//   threashold: [0,0.2]
+
+// };
+// const observer = new IntersectionObserver(obsCallback,obsOptions);
+// observer.observe(section1);
+//topic : sticky navigation - use scroll event
+// const initScroll = section1.getBoundingClientRect();
+// window.addEventListener('scroll',function(e){
+//   if(window.scrollY > initScroll.top){
+//     nav.classList.add('sticky');
+//   }else{
+//     nav.classList.remove('sticky');
+//   }
+// });
+
+
+//topic : menu fade animation
+const handleHover = function(e){
+  if(e.target.classList.contains('nav__link')){
+    const clicked = e.target;
+    const siblings = clicked.closest('.nav').querySelectorAll('.nav__link');
+    const logo = clicked.closest('.nav').querySelector('img');
+    siblings.forEach(el=>{
+      if(el!==clicked) el.style.opacity = this;
+    })
+    logo.style.opacity = this;
+  }
+}
+nav.addEventListener('mouseover',handleHover.bind(0.5));
+nav.addEventListener('mouseout',handleHover.bind(1));
+
+
+//topic : Tabbed component
+tabsContainer.addEventListener('click',(e)=>{
+  const clicked = e.target.closest('.operations__tab');
+  if(!clicked) return;
+  // console.log(clicked);
+  tabs.forEach(t=>t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(t=>t.classList.remove('operations__content--active'));
+  //subtopic : guard clause
+  clicked.classList.add('operations__tab--active');
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
+});
+//topic : DOM traversing
+//subtopic : going downwards : child
+// const h1 = document.querySelector('h1');
+// console.log(h1.childNodes);
+// console.log(h1.children);
+// console.log(h1.firstElementChild);
+// h1.firstElementChild.style.color = 'white';
+// h1.lastElementChild.style.color = 'orangered';
+
+//subtopic : going upwards : parents
+// const header = h1.closest('.header');
+// console.log(h1.parentElement);
+// h1.closest('header').style.background = 'var(--gradient-secondary)';
+// h1.closest('h1').style.background = 'var(--gradient-primary)';
+// console.log(h1.parentNode);
+// console.log(document.querySelector('html').parentNode);
+
+//subtopic : going sideways : siblings
+// console.log(h1.previousElementSibling);
+// console.log(h1.previousSibling);
+// console.log(h1.nextElementSibling);
+// console.log(h1.nextSibling);
+
+// console.log(h1.parentElement.children);
+// [...h1.parentElement.children].forEach(function(el){
+//   if(el !== h1) el.style.transform = 'scale(0.5)';
+// });
+
+//topic : Event delegation : implementing page navigation
+//subtopic : page navigation-unefficient way
+// document.querySelectorAll('.nav__link').forEach(function(el){
+//   el.addEventListener('click',function(e){
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({behavior:'smooth'});
+//   });
+// });
+//subtopic : page navigation-efficient way(bubbling up)
+document.querySelector('.nav__links').addEventListener('click',function(e){
+  e.preventDefault();
+  if(e.target.classList.contains('nav__link')){
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({behavior:'smooth'});
+  }
+})
+
 
 //topic : Event Propagation in Practice
-const randomInt = (min,max) => Math.floor(Math.random()*(max-min+1)+min);
-const randomColor = () => `rgb(${randomInt(0,255)},${randomInt(0,255)},${randomInt(0,255)})`;
-console.log(randomColor(0,255));
-document.querySelector('.nav__link').addEventListener
-('click', function(e){
-  this.style.backgroundColor = randomColor();
-})
-document.querySelector('.nav__links').addEventListener
-('click', function(e){
-  this.style.backgroundColor = randomColor();
-})
-document.querySelector('.nav').addEventListener
-('click', function(e){
-  this.style.backgroundColor = randomColor();
-})
+// const randomInt = (min,max) => Math.floor(Math.random()*(max-min+1)+min);
+// const randomColor = () => `rgb(${randomInt(0,255)},${randomInt(0,255)},${randomInt(0,255)})`;
+// console.log(randomColor(0,255));
+//propagation : layer1
+// document.querySelector('.nav__link').addEventListener
+// ('click', function(e){
+//   this.style.backgroundColor = randomColor();
+//   console.log('LINK',e.target,e.currentTarget);
+  // console.log(e.currentTarget === this);
+  //subtopic : stop propagation
+//   e.stopPropagation();
+// })
+//propagation : layer2
+// document.querySelector('.nav__links').addEventListener
+// ('click', function(e){
+//   this.style.backgroundColor = randomColor();
+//   console.log('CONTAINER',e.target,e.currentTarget);
+// })
+//propagation : layer3
+// document.querySelector('.nav').addEventListener
+// ('click', function(e){
+//   this.style.backgroundColor = randomColor();
+//   console.log('NAV',e.target,e.currentTarget);
+// })
 
 //topic : types of events and event handlers
-const h1 = document.querySelector('h1');
-const alertH1 = function(e){
-  alert('addEventListener: Great! You are reading the heading :D');
+// const h1 = document.querySelector('h1');
+// const alertH1 = function(e){
+//   alert('addEventListener: Great! You are reading the heading :D');
 //subtopic : removing event listener by using function expression
   // h1.removeEventListener('mouseenter',alertH1); 
-};
+// };
 // h1.addEventListener('mouseenter',alertH1);
 //subtopic : removing event listener by using timeOut function
 // setTimeout(()=>{h1.removeEventListener('mouseenter',alertH1)},3000);
 
 
 //topic : smooth scrolling
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
 
 btnScrollTo.addEventListener('click',(e)=>{
   const s1coords = section1.getBoundingClientRect();
@@ -87,7 +248,6 @@ btnScrollTo.addEventListener('click',(e)=>{
 // console.log(document.documentElement);
 // console.log(document.head);
 // console.log(document.body);
-const header = document.querySelector('.header');
 // console.log(header);
 // const allSections = document.querySelectorAll('.section');
 // console.log(allSections);
