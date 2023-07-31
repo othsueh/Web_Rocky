@@ -97,6 +97,9 @@ const formatMovmentDate = function(date){
   // } 
   
 }
+const formatCur = (value,locale,currency) =>{
+  return new Intl.NumberFormat(locale,{style : 'currency',currency : currency}).format(value);
+}
 const displayMovements = function (movements, dates,sort = false) {
   containerMovements.innerHTML = '';
 
@@ -106,7 +109,7 @@ const displayMovements = function (movements, dates,sort = false) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const date = new Date(dates[i])
     const dateStr = formatMovmentDate(date)
-    const formatMov = new Intl.NumberFormat(currentAccount.locale,{style : 'currency', currency : currentAccount.currency}).format(mov);
+    const formatMov = formatCur(mov,currentAccount.locale,currentAccount.currency)
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
@@ -123,7 +126,7 @@ const displayMovements = function (movements, dates,sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  const formatBalance = new Intl.NumberFormat(currentAccount.locale,{style : 'currency', currency : currentAccount.currency}).format(acc.balance);
+  const formatBalance = formatCur(acc.balance,currentAccount.locale,currentAccount.currency)
   labelBalance.textContent = `${formatBalance}`;
 };
 
@@ -131,13 +134,13 @@ const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  const formatIncomes = new Intl.NumberFormat(currentAccount.locale,{style : 'currency', currency : currentAccount.currency}).format(incomes);
+  const formatIncomes = formatCur(incomes,currentAccount.locale,currentAccount.currency)
   labelSumIn.textContent = `${formatIncomes}`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  const formatOut = new Intl.NumberFormat(currentAccount.locale,{style : 'currency', currency : currentAccount.currency}).format(out);
+  const formatOut = formatCur(Math.abs(out),currentAccount.locale,currentAccount.currency)
   labelSumOut.textContent = `${formatOut}`;
 
   const interest = acc.movements
@@ -148,7 +151,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  const formatInterest = new Intl.NumberFormat(currentAccount.locale,{style : 'currency', currency : currentAccount.currency}).format(interest);
+  const formatInterest = formatCur(interest,currentAccount.locale,currentAccount.currency)
   labelSumInterest.textContent = `${formatInterest}`;
 };
 
@@ -191,9 +194,32 @@ const updateUI = function (acc) {
   })
 };
 
+const startLogOutTimer = function(){
+  const tick = function (){
+    const timeFormatChanger = time => {
+      const min = Math.floor(time/60).toString().padStart(2,0);
+      const sec = (time % 60).toString().padStart(2,0);
+      return `${min}:${sec}`;
+    }
+    const timeStr = timeFormatChanger(time);
+    labelTimer.textContent = timeStr;
+    time--;
+    if(time === 0){
+      clearInterval(timer);
+      labelWelcome.textContent = `Log in to get started`;
+      containerApp.style.opacity = 0;
+    }
+
+  }
+  let time = 300;
+  tick();
+  const timer = setInterval(tick,1000)
+  return timer;
+}
+
 ///////////////////////////////////////
 // Event handlers
-let currentAccount;
+let currentAccount,timer;
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -217,6 +243,8 @@ btnLogin.addEventListener('click', function (e) {
 
     // Update UI
     updateUI(currentAccount);
+    if(timer) clearInterval(timer);
+    startLogOutTimer();
   }
 });
 
@@ -252,13 +280,15 @@ btnLoan.addEventListener('click', function (e) {
   const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(amount);
-    //Add Loan time
-    currentAccount.movementsDates.push(new Date().toISOString());
+    setTimeout(function(){
+      // Add movement
+      currentAccount.movements.push(amount);
+      //Add Loan time
+      currentAccount.movementsDates.push(new Date().toISOString());
 
-    // Update UI
-    updateUI(currentAccount);
+      // Update UI
+      updateUI(currentAccount);
+    },2500)
   }
   inputLoanAmount.value = '';
 });
@@ -296,18 +326,29 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+//topic time Out
+// const name = ['Jonas','Schmedtmann']
+// const pizzaSender = setTimeout((one,two)=>console.log(`Hey ${one} ${two}, Here is your pizza🍕`),3000,...name)
+// if(!name.includes('Jonas')) clearTimeout(pizzaSender)
+// setInterval(function(){
+//   const now = new Date();
+//   const hour = now.getHours();
+//   const minute = now.getMinutes();
+//   const second = now.getSeconds();
+//   console.log(`${hour}:${minute}:${second}`)
+// },3000)
 //topic Intl number
-const options = {
+// const options = {
   // style: 'unit',
-  style: 'currency',
-  unit: 'celsius',
-  currency: 'TWD'
-}
-const numb = 2345678;
-console.log(new Intl.NumberFormat('de-DE').format(numb))
-console.log(navigator.language,new Intl.NumberFormat(navigator.language).format(numb))
-console.log(navigator.language,new Intl.NumberFormat(navigator.language,options).format(numb))
-console.log('Germany',new Intl.NumberFormat('de-DE',options).format(numb))
+//   style: 'currency',
+//   unit: 'celsius',
+//   currency: 'TWD'
+// }
+// const numb = 2345678;
+// console.log(new Intl.NumberFormat('de-DE').format(numb))
+// console.log(navigator.language,new Intl.NumberFormat(navigator.language).format(numb))
+// console.log(navigator.language,new Intl.NumberFormat(navigator.language,options).format(numb))
+// console.log('Germany',new Intl.NumberFormat('de-DE',options).format(numb))
 //topic Date
 // const now = new Date()
 // console.log(now)

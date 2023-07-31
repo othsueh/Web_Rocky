@@ -37,6 +37,73 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+//DOM life cycle
+window.addEventListener('beforeunload',function(e){
+  e.preventDefault();
+  e.returnValue = '';
+});
+//topic : slider component
+const slides = function(){
+//subtopic : implementing slider button
+//variables and objects
+const slider = document.querySelectorAll('.slide');
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+let curSlide = 0;
+let maxSlide = slider.length;
+
+//functions
+const gotoSlide = function(cur){
+  slider.forEach((slide,i) =>slide.style.transform = `translateX(${100 *(i-cur)}%)`);
+  activeDot(cur);
+}
+slider.forEach((slide,i) => slide.style.transform = `translateX(${100 * i}%)`);
+const preSlide = () =>{
+  curSlide--;
+  if(curSlide < 0) curSlide = maxSlide-1;
+  gotoSlide(curSlide);
+};
+const nextSlide = () =>{
+  if(curSlide === maxSlide-1) curSlide = 0;
+  else curSlide++;
+  gotoSlide(curSlide);
+}
+btnLeft.addEventListener('click',preSlide);
+btnRight.addEventListener('click',nextSlide);
+//subtopic : implementing slider by dots
+const dotContainer = document.querySelector('.dots');
+const createDots = function(){
+  slider.forEach((_,i)=>{
+    dotContainer.insertAdjacentHTML('beforeend',`<button class="dots__dot" data-slide="${i}"></button>`);
+  })
+}
+const activeDot = function(slide){
+  document.querySelectorAll('.dots__dot').forEach(dot=>dot.classList.remove('dots__dot--active'));
+  document.querySelector(`.dots__dot[data-slide="${slide}"]`).classList.add('dots__dot--active');
+}
+dotContainer.addEventListener('click',function(e){
+  if(e.target.classList.contains('dots__dot')){
+    const {slide} = e.target.dataset;
+    gotoSlide(slide);
+    curSlide = slide;
+    activeDot(curSlide);
+  }
+});
+
+const initSlide = function()
+{
+  gotoSlide(0);
+  createDots();
+  activeDot(0);
+}
+//subtopic : implementing slider button by using keyboard
+document.addEventListener('keydown',function(e){
+  if(e.key == 'ArrowLeft') preSlide();
+  if(e.key == 'ArrowRight') nextSlide();
+});
+}
+slides();
+
 //topic : lazy loading images
 const loadImg = function(entries,observer){
   const [entry] = entries;
