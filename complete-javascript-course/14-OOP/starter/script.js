@@ -1,29 +1,87 @@
 'use strict';
 
+//topic : object.create
+
+//subtopic : initial prototype
+const personProto = {
+    calcAge(){
+        console.log(2037 - this.birthYear);
+    },
+};
+
+const steven = Object.create(personProto);
+//topic : getter and setter
+// const account = {
+//     owner : 'Jonas',
+//     movements : [200,530,120,300],
+
+//     get latest(){
+//         return this.movements.slice(-1).pop();
+//     },
+//     set latest(mov){
+//         return this.movements.push(mov);
+//     }
+// }
+// console.log(account.latest);
+// account.latest = 50;
+// console.log(account.movements);
+
+//topic : ES6 classes
+class PersonCl{
+    //subtopic : instance method
+    constructor(fullName, birthYear){
+        this.fullName = fullName;
+        this.birthYear = birthYear;
+    }
+    calcAge(){
+        console.log(2037- this.birthYear);
+    }
+    //subtopic : set a property that already exist
+    set fullName(name){
+        if (name.includes(' ')) this._fullName = name;
+        else alert(`${name} is not a full name`);
+    }
+    get fullName(){
+        return this._fullName;
+    }
+    //subtopic : static method
+    static hey(){
+        console.log('Hey there');
+    }
+}
+const jessica = new PersonCl('Jessica Davis',1996);
+// console.log(jessica.fullName);
+// console.log(PersonCl.hey());
+// console.log(jessica.hey()); //error
+// jessica.calcAge();
+// console.log(jessica.hasOwnProperty('calcAge'));
+
+
+
 //topic : coding challenge #1
 //subtopic : constructor
-const Car = function(make,speed){
-    this.make = make;
-    this.speed = speed;
-}
-Car.prototype.accelerate = function(){
-    this.speed+=10;
-    console.log(this.speed);
-}
-Car.prototype.brake = function(){
-    this.speed-=5;
-    console.log(this.speed);
-}
-const bmw = new Car('BMW',0);
-const mercedes = new Car('Mercedes',0);
-while(bmw.speed!=95){
-    if(bmw.speed < 95) bmw.accelerate();
-    else bmw.brake();
-}
-while(mercedes.speed!=120){
-    if(mercedes.speed < 120) mercedes.accelerate();
-    else mercedes.brake();
-}
+// const Car = function(make,speed){
+//     this.make = make;
+//     this.speed = speed;
+// }
+// Car.prototype.accelerate = function(){
+//     this.speed+=10;
+//     console.log(this.speed);
+// }
+// Car.prototype.brake = function(){
+//     this.speed-=5;
+//     console.log(this.speed);
+// }
+// const bmw = new Car('BMW',0);
+// const mercedes = new Car('Mercedes',0);
+// while(bmw.speed!=95){
+//     if(bmw.speed < 95) bmw.accelerate();
+//     else bmw.brake();
+// }
+// while(mercedes.speed!=120){
+//     if(mercedes.speed < 120) mercedes.accelerate();
+//     else mercedes.brake();
+// }
 
 //topic : intro to constructor
 const Person = function(firstName, year){
