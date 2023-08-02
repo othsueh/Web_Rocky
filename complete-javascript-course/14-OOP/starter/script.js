@@ -1,15 +1,52 @@
 'use strict';
 
-//topic : object.create
+//topic : coding challenge #2
+class CarCl{
+    constructor(make,speed){
+        this.make = make;
+        this.speed = speed;
+    }
+    get speedUS(){
+        return this.speed/1.6;
+    }
+    set speedUS(speed){
+        this.speed = speed*1.6;
+    }
+    accelerate(){
+        this.speed+=10;
+        console.log(this.speed);
+    }
+    brake(){
+        this.speed-=5;
+        console.log(this.speed);
+    }
+}
 
+const ford = new CarCl('Ford',120);
+ford.speedUS = 120;
+ford.accelerate();
+console.log(ford.speed,ford.speedUS);
+//topic : object.create
 //subtopic : initial prototype
 const personProto = {
     calcAge(){
         console.log(2037 - this.birthYear);
     },
+    init(firstName, birthYear){
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+    }
 };
-
+//subtopic : create object
 const steven = Object.create(personProto);
+steven.name = 'Steven';
+steven.birthYear = 2002;
+steven.calcAge();
+
+const sarah = Object.create(personProto);
+sarah.init('Sarah',1979);
+sarah.calcAge();
+
 //topic : getter and setter
 // const account = {
 //     owner : 'Jonas',
