@@ -1,5 +1,48 @@
 'use strict';
 
+//topic : inheritance between ES6 classes
+
+class PersonCl{
+    //subtopic : instance method
+    constructor(fullName, birthYear){
+        this.fullName = fullName;
+        this.birthYear = birthYear;
+    }
+    calcAge(){
+        console.log(2037- this.birthYear);
+    }
+    //subtopic : set a property that already exist
+    set fullName(name){
+        if (name.includes(' ')) this._fullName = name;
+        else alert(`${name} is not a full name`);
+    }
+    get fullName(){
+        return this._fullName;
+    }
+    //subtopic : static method
+    static hey(){
+        console.log('Hey there');
+    }
+}
+
+class studentCl extends PersonCl{
+    constructor(fullName, birthYear, course){
+        super(fullName, birthYear);
+        this.course = course;
+    }
+    introduce(){
+        console.log(`My name is ${this.fullName} and I study ${this.course}`);
+    }
+    calcAge(){
+        console.log(`I'm ${2037-this.birthYear} years old, but as a student I feel more like ${2037-this.birthYear+10}`);
+    }
+}
+// studentCl.constructor = studentCl;
+const joe = new PersonCl('Joe Hey',1991);
+const martha = new studentCl('Martha Jones',2012,'Computer Science');
+console.dir(martha);
+martha.introduce();
+martha.calcAge();
 //topic : coding challenge #3
 // const CarProto = {
 //     init(make, speed){
@@ -16,6 +59,25 @@
 //     }
 
 // } 
+// subtopic : proto way
+// const EvProto = Object.create(CarProto);
+// EvProto.init = function(make,speed,charge){
+//     CarProto.init.call(this,make,speed);
+//     this.speed = speed;
+// }
+// EvProto.chargeBattery = function(chargeTo){
+//     this.charge = chargeTo;
+// }
+// EvProto.accelerate = function(){
+//     this.speed+=20;
+//     this.charge--;
+//     console.log(`${this.make} going at ${this.speed} km/h, with a charge of ${this.charge}%`);
+// };
+// const tesla = Object.create(EvProto);
+// tesla.init('Tesla',120,23);
+// tesla.chargeBattery(49);
+// tesla.accelerate();
+// subtopic : not proto way
 // const EV = function(make,speed,charge){
 //     CarProto.init.call(this,make,speed);
 //     this.charge = charge;
@@ -123,29 +185,29 @@
 // console.log(account.movements);
 
 //topic : ES6 classes
-class PersonCl{
+// class PersonCl{
     //subtopic : instance method
-    constructor(fullName, birthYear){
-        this.fullName = fullName;
-        this.birthYear = birthYear;
-    }
-    calcAge(){
-        console.log(2037- this.birthYear);
-    }
+//     constructor(fullName, birthYear){
+//         this.fullName = fullName;
+//         this.birthYear = birthYear;
+//     }
+//     calcAge(){
+//         console.log(2037- this.birthYear);
+//     }
     //subtopic : set a property that already exist
-    set fullName(name){
-        if (name.includes(' ')) this._fullName = name;
-        else alert(`${name} is not a full name`);
-    }
-    get fullName(){
-        return this._fullName;
-    }
+//     set fullName(name){
+//         if (name.includes(' ')) this._fullName = name;
+//         else alert(`${name} is not a full name`);
+//     }
+//     get fullName(){
+//         return this._fullName;
+//     }
     //subtopic : static method
-    static hey(){
-        console.log('Hey there');
-    }
-}
-const jessica = new PersonCl('Jessica Davis',1996);
+//     static hey(){
+//         console.log('Hey there');
+//     }
+// }
+// const jessica = new PersonCl('Jessica Davis',1996);
 // console.log(jessica.fullName);
 // console.log(PersonCl.hey());
 // console.log(jessica.hey()); //error
