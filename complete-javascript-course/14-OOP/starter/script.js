@@ -1,24 +1,28 @@
 'use strict';
 
 //topic : coding challenge #3
-// const Car = function(make,speed){
-//     this.make = make;
-//     this.speed = speed;
-// }
-// Car.prototype.accelerate = function(){
-//     this.speed+=10;
-//     console.log(this.speed);
-// }
-// Car.prototype.brake = function(){
-//     this.speed-=5;
-//     console.log(this.speed);
-// }
+// const CarProto = {
+//     init(make, speed){
+//         this.make = make;
+//         this.speed = speed;
+//     },
+//     accelerate(){
+//         this.speed+=10;
+//         console.log(this.speed);
+//     },
+//     brake(){
+//         this.speed-=5;
+//         console.log(this.speed);
+//     }
+
+// } 
 // const EV = function(make,speed,charge){
-//     Car.call(this,make,speed);
+//     CarProto.init.call(this,make,speed);
 //     this.charge = charge;
 // }
-// EV.prototype = Object.create(Car.prototype);
+// EV.prototype = Object.create(CarProto);
 // EV.prototype.constructor = EV;
+// console.dir(EV);
 // EV.prototype.chargeBattery = function(chargeTo){
 //     this.charge = chargeTo;
 // }
