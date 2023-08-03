@@ -1,51 +1,75 @@
 'use strict';
 
-//topic : coding challenge #2
-class CarCl{
-    constructor(make,speed){
-        this.make = make;
-        this.speed = speed;
-    }
-    get speedUS(){
-        return this.speed/1.6;
-    }
-    set speedUS(speed){
-        this.speed = speed*1.6;
-    }
-    accelerate(){
-        this.speed+=10;
-        console.log(this.speed);
-    }
-    brake(){
-        this.speed-=5;
-        console.log(this.speed);
-    }
+//topic : inheritance between classes
+//subtopic : parent class
+const Person = function(firstName, year){
+    this.firstName = firstName;
+    this.year = year;
 }
+//subtopic : child class
+const student = function(firstName, year, course){
+    Person.call(this,firstName, year);
+    this.course = course;
+};
+// subtopic : linking prototype
+student.prototype = Object.create(Person.prototype);
+student.prototype.constructor = student;
+student.prototype.introduce = function(){
+    console.log(`My name is ${this.firstName} and I study ${this.course}`);
+}
+//subtopic : instance
+const mike = new student('Mike',2020,'Computer Science');
+mike.introduce();
+console.log(mike.__proto__);
+console.log(mike instanceof student);
+console.log(mike instanceof Person);
+//topic : coding challenge #2
+// class CarCl{
+//     constructor(make,speed){
+//         this.make = make;
+//         this.speed = speed;
+//     }
+//     get speedUS(){
+//         return this.speed/1.6;
+//     }
+//     set speedUS(speed){
+//         this.speed = speed*1.6;
+//     }
+//     accelerate(){
+//         this.speed+=10;
+//         console.log(this.speed);
+//     }
+//     brake(){
+//         this.speed-=5;
+//         console.log(this.speed);
+//     }
+// }
 
-const ford = new CarCl('Ford',120);
-ford.speedUS = 120;
-ford.accelerate();
-console.log(ford.speed,ford.speedUS);
+// const ford = new CarCl('Ford',120);
+// ford.speedUS = 120;
+// ford.accelerate();
+// console.log(ford.speed,ford.speedUS);
+
 //topic : object.create
 //subtopic : initial prototype
-const personProto = {
-    calcAge(){
-        console.log(2037 - this.birthYear);
-    },
-    init(firstName, birthYear){
-        this.firstName = firstName;
-        this.birthYear = birthYear;
-    }
-};
+// const personProto = {
+//     calcAge(){
+//         console.log(2037 - this.birthYear);
+//     },
+//     init(firstName, birthYear){
+//         this.firstName = firstName;
+//         this.birthYear = birthYear;
+//     }
+// };
 //subtopic : create object
-const steven = Object.create(personProto);
-steven.name = 'Steven';
-steven.birthYear = 2002;
-steven.calcAge();
+// const steven = Object.create(personProto);
+// steven.name = 'Steven';
+// steven.birthYear = 2002;
+// steven.calcAge();
 
-const sarah = Object.create(personProto);
-sarah.init('Sarah',1979);
-sarah.calcAge();
+// const sarah = Object.create(personProto);
+// sarah.init('Sarah',1979);
+// sarah.calcAge();
 
 //topic : getter and setter
 // const account = {
@@ -121,15 +145,15 @@ const jessica = new PersonCl('Jessica Davis',1996);
 // }
 
 //topic : intro to constructor
-const Person = function(firstName, year){
-    this.firstName = firstName;
-    this.year = year;
-}
+// const Person = function(firstName, year){
+//     this.firstName = firstName;
+//     this.year = year;
+// }
 //New {} is created
 //function is called, this = {}
 //{} linked to prototype
 //function automatically return {}
-const jonas = new Person('jonas',1991);
+// const jonas = new Person('jonas',1991);
 // console.log(jonas);
 // console.log(jonas instanceof Person);
 
