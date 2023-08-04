@@ -14,32 +14,6 @@ const mike = new student('Mike',2020,'Computer Science');
 console.log(mike);
 console.log(mike instanceof student);
 
-//topic : coding challenge #2
-// class CarCl{
-//     constructor(make,speed){
-//         this.make = make;
-//         this.speed = speed;
-//     }
-//     get speedUS(){
-//         return this.speed/1.6;
-//     }
-//     set speedUS(speed){
-//         this.speed = speed*1.6;
-//     }
-//     accelerate(){
-//         this.speed+=10;
-//         console.log(this.speed);
-//     }
-//     brake(){
-//         this.speed-=5;
-//         console.log(this.speed);
-//     }
-// }
-
-// const ford = new CarCl('Ford',120);
-// ford.speedUS = 120;
-// ford.accelerate();
-// console.log(ford.speed,ford.speedUS);
 //topic : object.create
 //subtopic : initial prototype
 // const personProto = {
