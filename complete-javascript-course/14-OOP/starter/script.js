@@ -1,7 +1,83 @@
 'use strict';
 
-//topic : inheritance between ES6 classes
+//topic : inheritance between classes
+//subtopic : constructor function
+const Person = function(firstName, year){
+    this.firstName = firstName;
+    this.year = year;
+}
+const student = function(firstName, year, course){
+    Person.call(this,firstName,year);
+    this.course = course;
+}
+const mike = new student('Mike',2020,'Computer Science');
+console.log(mike);
+console.log(mike instanceof student);
 
+//topic : coding challenge #2
+// class CarCl{
+//     constructor(make,speed){
+//         this.make = make;
+//         this.speed = speed;
+//     }
+//     get speedUS(){
+//         return this.speed/1.6;
+//     }
+//     set speedUS(speed){
+//         this.speed = speed*1.6;
+//     }
+//     accelerate(){
+//         this.speed+=10;
+//         console.log(this.speed);
+//     }
+//     brake(){
+//         this.speed-=5;
+//         console.log(this.speed);
+//     }
+// }
+
+// const ford = new CarCl('Ford',120);
+// ford.speedUS = 120;
+// ford.accelerate();
+// console.log(ford.speed,ford.speedUS);
+//topic : object.create
+//subtopic : initial prototype
+// const personProto = {
+//     calcAge(){
+//         console.log(2037 - this.birthYear);
+//     },
+//     init(firstName, birthYear){
+//         this.firstName = firstName;
+//         this.birthYear = birthYear;
+//     }
+// };
+//subtopic : create object
+// const steven = Object.create(personProto);
+// steven.name = 'Steven';
+// steven.birthYear = 2002;
+// steven.calcAge();
+
+// const sarah = Object.create(personProto);
+// sarah.init('Sarah',1979);
+// sarah.calcAge();
+
+//topic : getter and setter
+// const account = {
+//     owner : 'Jonas',
+//     movements : [200,530,120,300],
+
+//     get latest(){
+//         return this.movements.slice(-1).pop();
+//     },
+//     set latest(mov){
+//         return this.movements.push(mov);
+//     }
+// }
+// console.log(account.latest);
+// account.latest = 50;
+// console.log(account.movements);
+
+//topic : ES6 classes
 class PersonCl{
     //subtopic : instance method
     constructor(fullName, birthYear){
