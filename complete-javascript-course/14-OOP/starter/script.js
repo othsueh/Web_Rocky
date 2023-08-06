@@ -1,18 +1,56 @@
 'use strict';
 
+//topic : class example
+class account{
+    constructor(owner,currency,pin){
+        this.owner = owner;
+        this.currency = currency;
+        this._pin = pin;
+        //subtopic : protected property
+        this._movements = [];
+        this.locale = navigator.language;
+        console.log(`Thanks for opening an account, ${owner}`);
+    }
+    _approveLoan(val){
+        return true;
+    }
+    //subtopic : public interface
+    getMovements(){
+        return this._movements;
+    }
+    deposit(val){
+        this._movements.push(val);
+    }
+    withdraw(val){
+        this.deposit(-val);
+    }
+    requestLoan(val){
+        if(this._approveLoan(val)){
+            this.deposit(val);
+            console.log(`Loan approved`);
+        }
+    }
+}
+const acc1 = new account('Jonas','EUR',1111);
+acc1.deposit(250);
+acc1.withdraw(140);
+acc1.requestLoan(1000);
+acc1.approveLoan(1000);
+console.log(acc1.getMovements());
+console.log(acc1);
 //topic : inheritance between classes
 //subtopic : constructor function
-const Person = function(firstName, year){
-    this.firstName = firstName;
-    this.year = year;
-}
-const student = function(firstName, year, course){
-    Person.call(this,firstName,year);
-    this.course = course;
-}
-const mike = new student('Mike',2020,'Computer Science');
-console.log(mike);
-console.log(mike instanceof student);
+// const Person = function(firstName, year){
+//     this.firstName = firstName;
+//     this.year = year;
+// }
+// const student = function(firstName, year, course){
+//     Person.call(this,firstName,year);
+//     this.course = course;
+// }
+// const mike = new student('Mike',2020,'Computer Science');
+// console.log(mike);
+// console.log(mike instanceof student);
 
 //topic : object.create
 //subtopic : initial prototype
@@ -52,47 +90,47 @@ console.log(mike instanceof student);
 // console.log(account.movements);
 
 //topic : ES6 classes
-class PersonCl{
-    //subtopic : instance method
-    constructor(fullName, birthYear){
-        this.fullName = fullName;
-        this.birthYear = birthYear;
-    }
-    calcAge(){
-        console.log(2037- this.birthYear);
-    }
-    //subtopic : set a property that already exist
-    set fullName(name){
-        if (name.includes(' ')) this._fullName = name;
-        else alert(`${name} is not a full name`);
-    }
-    get fullName(){
-        return this._fullName;
-    }
-    //subtopic : static method
-    static hey(){
-        console.log('Hey there');
-    }
-}
+// class PersonCl{
+//     //subtopic : instance method
+//     constructor(fullName, birthYear){
+//         this.fullName = fullName;
+//         this.birthYear = birthYear;
+//     }
+//     calcAge(){
+//         console.log(2037- this.birthYear);
+//     }
+//     //subtopic : set a property that already exist
+//     set fullName(name){
+//         if (name.includes(' ')) this._fullName = name;
+//         else alert(`${name} is not a full name`);
+//     }
+//     get fullName(){
+//         return this._fullName;
+//     }
+//     //subtopic : static method
+//     static hey(){
+//         console.log('Hey there');
+//     }
+// }
 
-class studentCl extends PersonCl{
-    constructor(fullName, birthYear, course){
-        super(fullName, birthYear);
-        this.course = course;
-    }
-    introduce(){
-        console.log(`My name is ${this.fullName} and I study ${this.course}`);
-    }
-    calcAge(){
-        console.log(`I'm ${2037-this.birthYear} years old, but as a student I feel more like ${2037-this.birthYear+10}`);
-    }
-}
-// studentCl.constructor = studentCl;
-const joe = new PersonCl('Joe Hey',1991);
-const martha = new studentCl('Martha Jones',2012,'Computer Science');
-console.dir(martha);
-martha.introduce();
-martha.calcAge();
+// class studentCl extends PersonCl{
+//     constructor(fullName, birthYear, course){
+//         super(fullName, birthYear);
+//         this.course = course;
+//     }
+//     introduce(){
+//         console.log(`My name is ${this.fullName} and I study ${this.course}`);
+//     }
+//     calcAge(){
+//         console.log(`I'm ${2037-this.birthYear} years old, but as a student I feel more like ${2037-this.birthYear+10}`);
+//     }
+// }
+// // studentCl.constructor = studentCl;
+// const joe = new PersonCl('Joe Hey',1991);
+// const martha = new studentCl('Martha Jones',2012,'Computer Science');
+// console.dir(martha);
+// martha.introduce();
+// martha.calcAge();
 //topic : coding challenge #3
 // const CarProto = {
 //     init(make, speed){
