@@ -2,42 +2,52 @@
 
 //topic : class example
 class account{
+    //subtopic : public fields
+    locale = navigator.language;
+    //subtopic : private fields
+    #movements = [];
+    #pin;
     constructor(owner,currency,pin){
         this.owner = owner;
         this.currency = currency;
-        this._pin = pin;
+        this.#pin = pin;
         //subtopic : protected property
-        this._movements = [];
-        this.locale = navigator.language;
         console.log(`Thanks for opening an account, ${owner}`);
     }
-    _approveLoan(val){
+    //subtopic : private method
+    #approveLoan(val){
         return true;
     }
+    
     //subtopic : public interface
     getMovements(){
-        return this._movements;
+        return this.#movements;
     }
     deposit(val){
-        this._movements.push(val);
+        this.#movements.push(val);
+        return this;
     }
     withdraw(val){
         this.deposit(-val);
+        return this;
     }
     requestLoan(val){
-        if(this._approveLoan(val)){
+        if(this.#approveLoan(val)){
             this.deposit(val);
             console.log(`Loan approved`);
         }
+        return this;
+    }
+    static helper(){
+        console.log('Helper');
     }
 }
 const acc1 = new account('Jonas','EUR',1111);
 acc1.deposit(250);
 acc1.withdraw(140);
 acc1.requestLoan(1000);
-acc1.approveLoan(1000);
-console.log(acc1.getMovements());
-console.log(acc1);
+//subtopic : chaining
+console.log(acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).getMovements());
 //topic : inheritance between classes
 //subtopic : constructor function
 // const Person = function(firstName, year){
