@@ -1,53 +1,103 @@
 'use strict';
 
+//topic : coding challenge #4
+//subtopic : extend class
+// class CarCl{
+//     constructor(make,speed){
+//         this.make = make;
+//         this.speed = speed;
+//     }
+//     get speedUS(){
+//         return this.speed/1.6;
+//     }
+//     set speedUS(speed){
+//         this.speed = speed*1.6;
+//     }
+//     accelerate(){
+//         this.speed+=10;
+//         console.log(this.speed);
+//     }
+//     brake(){
+//         this.speed-=5;
+//         console.log(this.speed);
+//     }
+// }
+
+// class EVCl extends CarCl{
+//     //subtopic : private fields
+//     #charge;
+//     constructor(make,speed,charge){
+//         super(make,speed);
+//         this.#charge = charge;
+//     }
+//     //subtopic : extends old method
+//     accelerate(){
+//         this.speed+=20;
+//         this.#charge--;
+//         console.log(`${this.make} going at ${this.speed} km/h, with a charge of ${this.#charge}%`);
+//         return this;
+//     }
+//     charBattery(chargeTo){
+//         this.#charge = chargeTo;
+//         return this;
+//     }
+//     brake(){
+//         this.speed-=5;
+//         console.log(this.speed);
+//         return this;
+//     }
+// }
+// const rivian = new EVCl('Rivian',100,5);
+// rivian.charBattery(23).accelerate().accelerate().accelerate().brake().brake();
+
 //topic : class example
-class account{
-    //subtopic : public fields
-    locale = navigator.language;
-    //subtopic : private fields
-    #movements = [];
-    #pin;
-    constructor(owner,currency,pin){
-        this.owner = owner;
-        this.currency = currency;
-        this.#pin = pin;
-        //subtopic : protected property
-        console.log(`Thanks for opening an account, ${owner}`);
-    }
-    //subtopic : private method
-    #approveLoan(val){
-        return true;
-    }
+// class account{
+//     //subtopic : public fields
+//     locale = navigator.language;
+//     //subtopic : private fields
+//     #movements = [];
+//     #pin;
+//     constructor(owner,currency,pin){
+//         this.owner = owner;
+//         this.currency = currency;
+//         this.#pin = pin;
+//         //subtopic : protected property
+//         console.log(`Thanks for opening an account, ${owner}`);
+//     }
+//     //subtopic : private method
+//     #approveLoan(val){
+//         return true;
+//     }
     
-    //subtopic : public interface
-    getMovements(){
-        return this.#movements;
-    }
-    deposit(val){
-        this.#movements.push(val);
-        return this;
-    }
-    withdraw(val){
-        this.deposit(-val);
-        return this;
-    }
-    requestLoan(val){
-        if(this.#approveLoan(val)){
-            this.deposit(val);
-            console.log(`Loan approved`);
-        }
-        return this;
-    }
-    static helper(){
-        console.log('Helper');
-    }
-}
-const acc1 = new account('Jonas','EUR',1111);
-acc1.deposit(250);
-acc1.withdraw(140);
-acc1.requestLoan(1000);
+//     //subtopic : public interface
+//     getMovements(){
+//         return this.#movements;
+//     }
+//     deposit(val){
+//         this.#movements.push(val);
+//         return this;
+//     }
+//     withdraw(val){
+//         this.deposit(-val);
+//         return this;
+//     }
+//     requestLoan(val){
+//         if(this.#approveLoan(val)){
+//             this.deposit(val);
+//             console.log(`Loan approved`);
+//         }
+//         return this;
+//     }
+//     static helper(){
+//         console.log('Helper');
+//     }
+// }
+// const acc1 = new account('Jonas','EUR',1111);
+// acc1.deposit(250);
+// acc1.withdraw(140);
+// acc1.requestLoan(1000);
 //subtopic : chaining
-console.log(acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).getMovements());
+// console.log(acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).getMovements());
 //topic : inheritance between classes
 //subtopic : constructor function
 // const Person = function(firstName, year){
