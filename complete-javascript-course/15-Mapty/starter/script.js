@@ -15,11 +15,13 @@ const inputElevation = document.querySelector('.form__input--elevation');
 class App{
     #map;
     #mapEvent;
+    #mapZoomLevel = 13;
     #workouts = [];
     constructor(){
         this._getPosition();
         form.addEventListener('submit',this._newWorkout.bind(this));
         inputType.addEventListener('change',this._toggleElevationField);
+        containerWorkouts.addEventListener('click',this._moveToPopup.bind(this));
     }
     _getPosition(){
     if(navigator.geolocation){
@@ -33,7 +35,7 @@ class App{
         const {latitude} = position.coords;
         const {longitude} = position.coords;
         const coords = [latitude, longitude];
-        this.#map = L.map('map').setView(coords, 13);
+        this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
         L.tileLayer('https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(this.#map);
@@ -139,10 +141,25 @@ class App{
         `
         form.insertAdjacentHTML('afterend',html);
     }
+    _moveToPopup(e){
+        const workoutEl = e.target.closest('.workout');
+        console.log(workoutEl);
+        if(!workoutEl) return;
+        const workout = this.#workouts.find(work => work.id === workoutEl.dataset.id);
+        this.#map.setView(workout.coords,this.#mapZoomLevel,{
+            animate: true,
+            pan: {
+                duration: 1
+            }
+        });
+        workout.click();
+        
+    }
 }
 
 class Workout{
     date = new Date();
+    clicks = 0;
     id = (Date.now() + '').slice(-10);
     constructor(coords, distance, duration){
         this.coords = coords;
@@ -151,6 +168,9 @@ class Workout{
     } 
     _setDescription(){
         this.discription =  `${this.type === 'running' ? 'Running' : 'Cycling'} on ${months[this.date.getMonth()]} ${this.date.getDate()}`;
+    }
+    click(){
+        this.clicks++;
     }
 }
 class Running extends Workout{
@@ -179,8 +199,8 @@ class Cycling extends Workout{
         return this.speed;
     }
 }
-const app = new App();
-//subtopic : testing
-// const run1 = new Running([39,-12],5.2,24,178);
+// const app = new App();
+// //subtopic : testing
+// const run1 = new Running([24.116674961751308, 120.63159942626955],5.2,24,178);
 // const cycling1 = new Cycling([39,-12],27,95,523);
 // console.log(run1,cycling1);
