@@ -88,6 +88,8 @@ class App{
         this._renderWorkout(workout);
         //subtopic : hide form + clear input fields
         this._hideForm();
+        //subtopic : set local storage for workouts
+        this._setLocalStorage();
     }
     _renderWorkoutMarker(workout){
         L.marker(workout.coords).addTo(this.#map).bindPopup(L.popup({
@@ -152,8 +154,10 @@ class App{
                 duration: 1
             }
         });
-        workout.click();
-        
+        workout.click(); 
+    }
+    _setLocalStorage(){
+        localStorage.setItem('workouts',JSON.stringify(this.#workouts));
     }
 }
 
